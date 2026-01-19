@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sitemap: MetadataRoute.Sitemap = []
 
   // Extract unique regions from DEPARTEMENT_TO_REGION
-  const uniqueRegions = [...new Set(Object.values(DEPARTEMENT_TO_REGION))]
+  const uniqueRegions = Array.from(new Set(Object.values(DEPARTEMENT_TO_REGION)))
 
   // ========================================
   // 1. PAGES STATIQUES
