@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export' removed - incompatible with dynamic routes (sitemap, robots, redirects)
+  // Vercel handles SSG automatically
   trailingSlash: true,
   images: {
     unoptimized: true,
