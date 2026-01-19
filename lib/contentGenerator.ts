@@ -433,7 +433,7 @@ export function generateBestCampingsContent(
   ).length
 
   const withPool = campings.filter(c => c.piscine).length
-  const withWifi = campings.filter(c => c.accesBornesWifi).length
+  const withWifi = campings.filter(c => c.wifi).length
   const withRestaurant = campings.filter(c => c.restauration).length
 
   const lieuPrep = lieuType === 'region' ? 'en' : lieuType === 'departement' ? 'dans le' : 'à'
@@ -635,7 +635,7 @@ export function generateCampingFAQ(camping: Camping): { question: string; answer
   // Question équipements essentiels
   const mainFeatures = []
   if (camping.piscine) mainFeatures.push('une piscine')
-  if (camping.accesBornesWifi) mainFeatures.push('le WiFi')
+  if (camping.wifi) mainFeatures.push('le WiFi')
   if (camping.restauration) mainFeatures.push('un service de restauration')
   if (camping.animeauxAcceptes) mainFeatures.push('l\'accueil des animaux')
 

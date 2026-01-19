@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import campings from '@/data/vie-de-camping.json'
-import { REGIONS, DEPARTEMENT_NAMES } from '@/lib/regions'
+import { DEPARTEMENT_TO_REGION, DEPARTEMENT_NAMES } from '@/lib/regions'
 import { slugify } from '@/lib/utils'
 
 /**
@@ -12,6 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date()
 
   const sitemap: MetadataRoute.Sitemap = []
+
+  // Extract unique regions from DEPARTEMENT_TO_REGION
+  const uniqueRegions = [...new Set(Object.values(DEPARTEMENT_TO_REGION))]
 
   // ========================================
   // 1. PAGES STATIQUES
@@ -85,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 3. PAGES RÉGIONS (13 régions)
   // ========================================
 
-  Object.keys(REGIONS).forEach((region) => {
+  uniqueRegions.forEach((region) => {
     sitemap.push({
       url: `${baseUrl}/campings/region/${slugify(region)}/`,
       lastModified: currentDate,

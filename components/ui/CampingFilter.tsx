@@ -33,7 +33,7 @@ export default function CampingFilter({ campings, onFilterChange }: CampingFilte
     }
 
     if (pool) filtered = filtered.filter(c => c.piscine === true)
-    if (wifi) filtered = filtered.filter(c => c.accesBornesWifi === true)
+    if (wifi) filtered = filtered.filter(c => c.wifi === true)
     if (restaurant) filtered = filtered.filter(c => c.restauration === true)
 
     if (capacity > 0) {
@@ -243,7 +243,7 @@ export default function CampingFilter({ campings, onFilterChange }: CampingFilte
                     cursor: 'pointer'
                   }}
                 />
-                <span>📶 WiFi ({campings.filter(c => c.accesBornesWifi).length})</span>
+                <span>📶 WiFi ({campings.filter(c => c.wifi).length})</span>
               </label>
 
               <label style={{

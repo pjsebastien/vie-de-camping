@@ -129,7 +129,7 @@ export default function CampingFilterWrapper({ campings, commune }: CampingFilte
                   <div>👥 {camping.capacite} personnes</div>
                 )}
                 {camping.piscine && <div>🏊 Piscine</div>}
-                {camping.accesBornesWifi && <div>📶 WiFi</div>}
+                {camping.wifi && <div>📶 WiFi</div>}
                 {camping.restauration && <div>🍽️ Restauration</div>}
               </div>
 

@@ -70,7 +70,7 @@ export function SearchBarAdvanced({
       filtered = filtered.filter(c => c.piscine === true)
     }
     if (hasWifi) {
-      filtered = filtered.filter(c => c.accesBornesWifi === true)
+      filtered = filtered.filter(c => c.wifi === true)
     }
     if (hasRestaurant) {
       filtered = filtered.filter(c => c.restauration === true)
