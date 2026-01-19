@@ -225,7 +225,11 @@ export function SearchBarAdvanced({
               placeholder="Camping, ville, région..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => searchQuery.length >= 2 && setShowResults(true)}
+              onFocus={(e) => {
+                if (searchQuery.length >= 2) setShowResults(true)
+                e.target.style.borderColor = '#003580'
+              }}
+              onBlur={(e) => setTimeout(() => e.target.style.borderColor = 'var(--color-gray-300)', 100)}
               style={{
                 width: '100%',
                 padding: 'var(--space-4) var(--space-4) var(--space-4) var(--space-10)',
@@ -236,8 +240,6 @@ export function SearchBarAdvanced({
                 transition: 'all var(--transition-base)',
                 fontWeight: 'var(--font-medium)'
               }}
-              onFocus={(e) => e.target.style.borderColor = '#003580'}
-              onBlur={(e) => setTimeout(() => e.target.style.borderColor = 'var(--color-gray-300)', 100)}
             />
             <svg
               style={{

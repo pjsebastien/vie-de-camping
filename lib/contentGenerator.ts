@@ -637,7 +637,7 @@ export function generateCampingFAQ(camping: Camping): { question: string; answer
   if (camping.piscine) mainFeatures.push('une piscine')
   if (camping.wifi) mainFeatures.push('le WiFi')
   if (camping.restaurant) mainFeatures.push('un service de restauration')
-  if (camping.animeauxAcceptes) mainFeatures.push('l\'accueil des animaux')
+  if (camping.animauxAcceptes) mainFeatures.push('l\'accueil des animaux')
 
   if (mainFeatures.length > 0) {
     faq.push({
@@ -661,7 +661,7 @@ export function generateCampingFAQ(camping: Camping): { question: string; answer
   }
 
   // Question animaux si acceptés
-  if (camping.animeauxAcceptes) {
+  if (camping.animauxAcceptes) {
     faq.push({
       question: 'Les animaux sont-ils acceptés ?',
       answer: `Oui, ce camping accepte les animaux de compagnie. Des conditions peuvent s'appliquer (supplément tarifaire, races acceptées, zones autorisées). Nous vous recommandons de prévenir le camping lors de votre réservation et de vous renseigner sur les règles spécifiques.`

@@ -4,6 +4,7 @@ interface IconProps {
   name: string
   className?: string
   size?: 'sm' | 'base' | 'lg' | 'xl'
+  style?: React.CSSProperties
 }
 
 const icons = {
@@ -54,7 +55,7 @@ const icons = {
   ),
 }
 
-export function Icon({ name, className = '', size = 'base' }: IconProps) {
+export function Icon({ name, className = '', size = 'base', style }: IconProps) {
   const sizeClass = size !== 'base' ? `icon--${size}` : ''
 
   return (
@@ -63,6 +64,7 @@ export function Icon({ name, className = '', size = 'base' }: IconProps) {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      style={style}
     >
       {icons[name as keyof typeof icons] || icons['info']}
     </svg>
