@@ -1,0 +1,59 @@
+🔄 Chargement du fichier JSON...
+✅ 5703 campings chargés
+📍 3628 campings sans coordonnées GPS
+🌍 Démarrage du geocoding...
+⏱️  Temps estimé: ~363 secondes (10 requêtes/sec)
+Erreur geocoding CAMPING  NAÉCO BAIE D'AUDIERNE: Unexpected token '<', "<html>
+<h"... is not valid JSON
+   Geocodé: 100/3628
+Erreur geocoding CAMPING AUX PORTES DE CASSIS: Unexpected token '<', "<html>
+<h"... is not valid JSON
+   Geocodé: 200/3628
+   Geocodé: 300/3628
+   Geocodé: 400/3628
+   Geocodé: 500/3628
+   Geocodé: 600/3628
+   Geocodé: 700/3628
+   Geocodé: 800/3628
+   Geocodé: 900/3628
+   Geocodé: 1000/3628
+Erreur geocoding CAMPING GCU TRÉVIGNON: Unexpected token '<', "<html>
+<h"... is not valid JSON
+   Geocodé: 1100/3628
+   Geocodé: 1200/3628
+   Geocodé: 1300/3628
+   Geocodé: 1400/3628
+   Geocodé: 1500/3628
+   Geocodé: 1600/3628
+   Geocodé: 1700/3628
+   Geocodé: 1800/3628
+   Geocodé: 1900/3628
+   Geocodé: 2000/3628
+   Geocodé: 2100/3628
+   Geocodé: 2200/3628
+   Geocodé: 2300/3628
+   Geocodé: 2400/3628
+   Geocodé: 2500/3628
+   Geocodé: 2600/3628
+   Geocodé: 2700/3628
+   Geocodé: 2800/3628
+   Geocodé: 2900/3628
+   Geocodé: 3000/3628
+   Geocodé: 3100/3628
+   Geocodé: 3200/3628
+   Geocodé: 3300/3628
+Erreur geocoding CAMPING SUN VALLEY: Unexpected token '<', "<html>
+<h"... is not valid JSON
+   Geocodé: 3400/3628
+   Geocodé: 3500/3628
+
+📊 Résultats:
+   ✅ Geocodés avec succès: 3565
+   ❌ Échecs: 63
+   📍 Total avec coordonnées: 5640 / 5703
+
+💾 Sauvegarde du fichier...
+✅ Fichier sauvegardé: c:\Users\pjseb\OneDrive\Desktop\viedecamping\data\vie-de-camping.json
+📊 Taille: 3.86 MB
+
+✨ Terminé!
