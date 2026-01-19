@@ -71,7 +71,7 @@ export default function CommunePage({ params }: Props) {
     if (camping.classement?.includes('4 étoiles')) with4stars++
     if (camping.piscine) withPool++
     if (camping.wifi) withWifi++
-    if (camping.restauration) withRestaurant++
+    if (camping.restaurant) withRestaurant++
   }
 
   // Contenu généré automatiquement

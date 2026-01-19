@@ -434,7 +434,7 @@ export function generateBestCampingsContent(
 
   const withPool = campings.filter(c => c.piscine).length
   const withWifi = campings.filter(c => c.wifi).length
-  const withRestaurant = campings.filter(c => c.restauration).length
+  const withRestaurant = campings.filter(c => c.restaurant).length
 
   const lieuPrep = lieuType === 'region' ? 'en' : lieuType === 'departement' ? 'dans le' : 'à'
   const lieuArticle = lieuType === 'region' ? 'la région' : lieuType === 'departement' ? 'le département' : 'la commune'
@@ -505,7 +505,7 @@ export function generateSejourSuggestions(camping: Camping): string[] {
   if (camping.piscine) {
     suggestions.push('Vacances avec piscine')
   }
-  if (camping.restauration) {
+  if (camping.restaurant) {
     suggestions.push('Séjour sans souci de restauration')
   }
 
@@ -636,7 +636,7 @@ export function generateCampingFAQ(camping: Camping): { question: string; answer
   const mainFeatures = []
   if (camping.piscine) mainFeatures.push('une piscine')
   if (camping.wifi) mainFeatures.push('le WiFi')
-  if (camping.restauration) mainFeatures.push('un service de restauration')
+  if (camping.restaurant) mainFeatures.push('un service de restauration')
   if (camping.animeauxAcceptes) mainFeatures.push('l\'accueil des animaux')
 
   if (mainFeatures.length > 0) {
@@ -715,7 +715,7 @@ export function generateSuggestedActivities(camping: Camping): {
   })
 
   // Gastronomie
-  if (camping.restauration) {
+  if (camping.restaurant) {
     activities.push({
       icon: '🍽️',
       title: 'Gastronomie locale',
