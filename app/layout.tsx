@@ -5,7 +5,11 @@ import { Header } from '@/components/layout/Header'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.viedecamping.fr'),
+  metadataBase: new URL(
+    process.env.NODE_ENV === 'production'
+      ? 'https://www.viedecamping.fr'
+      : 'http://localhost:3000'
+  ),
   title: {
     default: 'Vie de Camping - Guide des Campings en France',
     template: '%s | Vie de Camping',
