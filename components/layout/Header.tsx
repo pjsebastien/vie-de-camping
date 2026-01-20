@@ -56,6 +56,9 @@ export function Header() {
             <Link href="/campings/departements/" className="nav-link" onClick={closeMenu}>
               Départements
             </Link>
+            <Link href="/materiel-camping/" className="nav-link" onClick={closeMenu}>
+              Matériel
+            </Link>
             <Link href="/a-propos/" className="nav-link" onClick={closeMenu}>
               À propos
             </Link>
