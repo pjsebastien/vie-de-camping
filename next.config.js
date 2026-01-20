@@ -617,16 +617,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/materiel-camping',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
-        source: '/materiel-camping/',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
         source: '/type-de-camping',
         destination: '/campings/',
         permanent: true,
