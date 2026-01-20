@@ -74,6 +74,11 @@ export const metadata: Metadata = {
     // yandex: 'votre-code-yandex',
     // bing: 'votre-code-bing',
   },
+  icons: {
+    icon: '/images/vie de camping favicon.png',
+    shortcut: '/images/vie de camping favicon.png',
+    apple: '/images/vie de camping favicon.png',
+  },
 }
 
 export default function RootLayout({
