@@ -71,3 +71,7 @@ Le fichier CSV contient 5704 campings classés en France.
 - Meta title et description personnalisés
 - HTML sémantique (section, article, header, nav)
 - Génération statique pour performances optimales
+
+## Déploiement
+
+Le site est déployé sur Vercel avec génération statique automatique.
