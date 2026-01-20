@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Header } from '@/components/layout/Header'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -83,28 +84,7 @@ export default function RootLayout({
           Aller au contenu principal
         </a>
 
-        <header className="header">
-          <div className="container">
-            <div className="header-content">
-              <Link href="/" className="logo">
-                <Image
-                  src="/images/logos/logo-black.png"
-                  alt="Vie de Camping - Guide des campings en France"
-                  width={180}
-                  height={40}
-                  priority
-                />
-              </Link>
-              <nav className="nav" aria-label="Navigation principale">
-                <Link href="/" className="nav-link">Accueil</Link>
-                <Link href="/campings/" className="nav-link">Campings</Link>
-                <Link href="/campings/regions/" className="nav-link">Régions</Link>
-                <Link href="/campings/departements/" className="nav-link">Départements</Link>
-                <Link href="/a-propos/" className="nav-link">À propos</Link>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         <main className="main" id="main-content">
           {children}
