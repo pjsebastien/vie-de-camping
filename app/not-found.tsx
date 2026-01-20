@@ -95,51 +95,14 @@ export default function NotFound() {
         }}>
           <Link
             href="/"
-            style={{
-              display: 'inline-block',
-              backgroundColor: 'var(--color-primary)',
-              color: 'var(--color-white)',
-              padding: 'var(--space-4) var(--space-6)',
-              borderRadius: 'var(--radius-md)',
-              textDecoration: 'none',
-              fontWeight: 'var(--font-semibold)',
-              fontSize: 'var(--text-base)',
-              transition: 'all var(--transition-base)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)'
-              e.currentTarget.style.transform = 'translateY(-2px)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-primary)'
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
+            className="button-404-primary"
           >
             🏕️ Retour au Camp de Base
           </Link>
 
           <Link
             href="/campings/"
-            style={{
-              display: 'inline-block',
-              backgroundColor: 'var(--color-white)',
-              color: 'var(--color-primary)',
-              padding: 'var(--space-4) var(--space-6)',
-              borderRadius: 'var(--radius-md)',
-              textDecoration: 'none',
-              fontWeight: 'var(--font-semibold)',
-              fontSize: 'var(--text-base)',
-              border: '2px solid var(--color-primary)',
-              transition: 'all var(--transition-base)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-gray-50)'
-              e.currentTarget.style.transform = 'translateY(-2px)'
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-white)'
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
+            className="button-404-secondary"
           >
             🔍 Trouver un Camping
           </Link>
