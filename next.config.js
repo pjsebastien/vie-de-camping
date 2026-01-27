@@ -308,16 +308,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/fabriquer-tente-toit-diy',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
-        source: '/fabriquer-tente-toit-diy/',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
         source: '/facteurs-choix-vehicule-tente-toit',
         destination: '/materiel-camping/',
         permanent: true,
@@ -338,32 +328,12 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/meilleures-tentes-de-toit',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
-        source: '/meilleures-tentes-de-toit/',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
         source: '/spots-reve-campeurs-tente-toit',
         destination: '/materiel-camping/',
         permanent: true,
       },
       {
         source: '/spots-reve-campeurs-tente-toit/',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
-        source: '/tente-de-toit-rigide',
-        destination: '/materiel-camping/',
-        permanent: true,
-      },
-      {
-        source: '/tente-de-toit-rigide/',
         destination: '/materiel-camping/',
         permanent: true,
       },

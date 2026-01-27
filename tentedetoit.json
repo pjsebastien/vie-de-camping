@@ -1,0 +1,286 @@
+{
+  "brand": {
+    "name": "KAILOP",
+    "category": "tente_de_toit",
+    "positioning": "tentes de toit rigides haut de gamme",
+    "promise": "Agrandir l’espace de vie des voyageurs en transformant chaque véhicule en refuge mobile confortable, robuste et simple à utiliser.",
+    "affiliate": {
+      "program": "kailop",
+      "default_url": "https://kailop.fr/?ref=viedecamping",
+      "tracking_param": "ref=viedecamping"
+    },
+    "trust_badges": [
+      {
+        "label": "Garantie 5 ans",
+        "description": "Garantie fabricant premium couvrant la structure, la coque et les composants principaux."
+      },
+      {
+        "label": "Livraison gratuite",
+        "description": "Expédition sans frais depuis un entrepôt européen situé en France."
+      },
+      {
+        "label": "Retour sous 30 jours",
+        "description": "Retour possible dans les 30 jours suivant la réception, sous conditions."
+      },
+      {
+        "label": "Paiement flexible",
+        "description": "Plusieurs modes de paiement disponibles, y compris le paiement en plusieurs fois."
+      }
+    ],
+    "logistics": {
+      "warehouse_location": "France",
+      "delivery_delay_days": "5 à 7 jours ouvrés",
+      "remote_areas_delay_days": "jusqu’à 10 jours ouvrés"
+    },
+    "support": {
+      "email": "service@kailop.com",
+      "resources": [
+        "FAQ",
+        "guides d’installation",
+        "support client dédié"
+      ]
+    }
+  },
+
+  "models": [
+    {
+      "model": "KP19PRO",
+      "sku": "KP19PRO",
+      "type": "tente de toit rigide",
+      "opening_system": "ouverture arrière",
+      "positioning": "tente de toit rigide premium pour 2 à 3 personnes",
+      "affiliate": {
+        "url": "https://kailop.fr/products/kp19pro-tente-de-toit-rigide?ref=viedecamping",
+        "cta_label": "Voir la tente de toit KAILOP KP19PRO"
+      },
+      "pricing": {
+        "current_eur": 2499,
+        "original_eur": 2899,
+        "promotion_label": "-150 € immédiats",
+        "delivery": "livraison gratuite"
+      },
+      "availability": {
+        "in_stock": true,
+        "units_available": 14,
+        "shipping_delay_days": "5 à 7 jours ouvrés"
+      },
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 3
+      },
+      "dimensions": {
+        "open_cm": { "length": 215, "width": 133, "height": 147 },
+        "closed_cm": { "length": 215, "width": 133, "height": 13 },
+        "package_cm": { "length": 232, "width": 149, "height": 20 }
+      },
+      "weight": {
+        "net_kg": 75,
+        "gross_kg": 106
+      },
+      "materials": {
+        "shell": "aluminium",
+        "base": "aluminium en nid d’abeilles",
+        "fabric": "tissu 200 g infroissable",
+        "mosquito_net": "moustiquaire 125 g",
+        "mattress": "mousse à mémoire de forme"
+      },
+      "comfort": {
+        "mattress_thickness_cm": 5,
+        "mattress_width_cm": 150,
+        "storage": [
+          "rangements tête",
+          "rangements pieds",
+          "poches multifonctions"
+        ],
+        "lighting": "bande LED avec port USB",
+        "ventilation": "fenêtres avec double couche moustiquaire + tissu occultant"
+      },
+      "installation": {
+        "vehicle_compatibility": [
+          "SUV",
+          "4x4",
+          "véhicules avec barres de toit"
+        ],
+        "installation_time_minutes": 30,
+        "persons_required_first_install": 2,
+        "daily_use_persons": 1,
+        "ladder": {
+          "material": "aluminium",
+          "length_m": 2.3,
+          "max_load_kg": 325
+        }
+      },
+      "opening_system_details": {
+        "type": "vérins pneumatiques hydrauliques",
+        "origin": "Allemagne",
+        "opening_time_seconds": 5
+      },
+      "weather_resistance": {
+        "waterproof_rating": "PU5000+",
+        "uv_protection": "UV50+",
+        "four_seasons": true,
+        "rain_canopy": true,
+        "wind_resistant": true
+      },
+      "security": {
+        "fixation_system": "6 sangles de fixation en alliage d’aluminium",
+        "road_stability": "excellente stabilité en roulage"
+      },
+      "included_accessories": [
+        "matelas mousse à mémoire de forme",
+        "échelle télescopique aluminium",
+        "bande LED",
+        "tapis anti-humidité",
+        "sac à chaussures",
+        "sac extensible",
+        "kit d’installation",
+        "manuel utilisateur"
+      ],
+      "media": {
+        "images": {
+          "general": [
+            "https://kailop.fr/cdn/shop/files/2025-07-31T174109.360.png?v=1761620198&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-08-19T181041.074.png?v=1761620205&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T141129.255.png?v=1761620205&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T141140.395.png?v=1761620198&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T122736.891.png?v=1753417734&width=1070",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T122704.881.png?v=1753434543&width=1070",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T122621.479.png?v=1753434543&width=1070",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T122720.835.png?v=1753434543&width=1070"
+          ],
+          "interior": [
+            "https://kailop.fr/cdn/shop/files/7_2.png?v=1754016545&width=750",
+            "https://kailop.fr/cdn/shop/files/30_4_1.png?v=1754016644&width=750",
+            "https://kailop.fr/cdn/shop/files/b_1.png?v=1754016700&width=750"
+          ]
+        },
+        "video": {
+          "youtube_id": "_YyhBs4T1tU",
+          "url": "https://youtu.be/_YyhBs4T1tU"
+        }
+      }
+    },
+
+    {
+      "model": "ST09PRO",
+      "sku": "ST09PRO",
+      "type": "tente de toit rigide",
+      "opening_system": "ouverture latérale",
+      "positioning": "tente de toit rigide premium à ouverture latérale pour 2 à 3 personnes",
+      "affiliate": {
+        "url": "https://kailop.fr/products/kailop-st09pro-tente-de-toit-rigide?ref=viedecamping",
+        "cta_label": "Voir la tente de toit KAILOP ST09PRO"
+      },
+      "pricing": {
+        "current_eur": 2699,
+        "original_eur": 2999,
+        "promotion_label": "-150 € immédiats",
+        "delivery": "livraison gratuite"
+      },
+      "availability": {
+        "in_stock": true,
+        "units_available": 14,
+        "shipping_delay_days": "5 à 7 jours ouvrés"
+      },
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 3
+      },
+      "dimensions": {
+        "open_cm": { "length": 220, "width": 152, "height": 140 },
+        "closed_cm": { "length": 152, "width": 133, "height": 28 },
+        "package_cm": { "length": 167, "width": 145, "height": 37 }
+      },
+      "weight": {
+        "net_kg": 80,
+        "gross_kg": 125.24
+      },
+      "materials": {
+        "shell": "aluminium",
+        "base": "aluminium en nid d’abeilles",
+        "fabric": "tissu 200 g infroissable",
+        "mosquito_net": "moustiquaire 125 g",
+        "mattress": "mousse à mémoire de forme"
+      },
+      "comfort": {
+        "mattress_thickness_cm": 5,
+        "mattress_width_cm": 150,
+        "storage": [
+          "rangements tête",
+          "rangements pieds",
+          "poches multifonctions"
+        ],
+        "lighting": "bande LED avec port USB",
+        "ventilation": "3 larges fenêtres ventilées avec moustiquaires"
+      },
+      "installation": {
+        "vehicle_compatibility": [
+          "SUV",
+          "4x4",
+          "véhicules avec barres de toit"
+        ],
+        "excluded_vehicles": [
+          "voitures décapotables",
+          "Smart"
+        ],
+        "installation_time_minutes": 30,
+        "persons_required_first_install": 2,
+        "daily_use_persons": 1,
+        "ladder": {
+          "material": "aluminium",
+          "length_m": 2.3
+        }
+      },
+      "opening_system_details": {
+        "type": "vérin pneumatique hydraulique",
+        "origin": "Allemagne",
+        "opening_time_seconds": 5
+      },
+      "weather_resistance": {
+        "waterproof_rating": "PU5000+",
+        "uv_protection": "UV50+",
+        "four_seasons": true,
+        "rain_canopy": true,
+        "wind_resistant": true
+      },
+      "security": {
+        "fixation_system": "4 fermetures de sécurité en aluminium",
+        "road_stability": "aucun risque d’ouverture en roulage"
+      },
+      "included_accessories": [
+        "matelas mousse à mémoire de forme",
+        "échelle télescopique aluminium",
+        "bande LED",
+        "tapis anti-humidité",
+        "sac à chaussures",
+        "sac d’écartement",
+        "barres de soutien",
+        "kit d’installation",
+        "manuel utilisateur"
+      ],
+      "media": {
+        "images": {
+          "general": [
+            "https://kailop.fr/cdn/shop/files/2025-07-25T143719.147.png?v=1761620240&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-08-19T181204.897.png?v=1761620240&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T142420.789.png?v=1761620240&width=1100",
+            "https://kailop.fr/cdn/shop/files/2025-07-25T142344.347.png?v=1761620240&width=1100",
+            "https://kailop.fr/cdn/shop/files/A42I0524.jpg?v=1754035207&width=1070",
+            "https://kailop.fr/cdn/shop/files/Tente-de-toit-KAILOP1.jpg?v=1754034592&width=1070",
+            "https://kailop.fr/cdn/shop/files/Tente-de-toit-KAILOP.jpg?v=1754034246&width=1070",
+            "https://kailop.fr/cdn/shop/files/2025-08-21T181222.484.png?v=1755771337&width=1070"
+          ],
+          "interior": [
+            "https://kailop.fr/cdn/shop/files/2025-08-11T170953.403.png?v=1754903485&width=750",
+            "https://kailop.fr/cdn/shop/files/2025-08-11T171049.600.png?v=1754903486&width=750",
+            "https://kailop.fr/cdn/shop/files/2025-08-11T170958.673.png?v=1754903485&width=750"
+          ]
+        },
+        "video": {
+          "youtube_id": "YCszQ-BdlRc",
+          "url": "https://youtu.be/YCszQ-BdlRc"
+        }
+      }
+    }
+  ]
+}

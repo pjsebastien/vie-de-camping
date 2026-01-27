@@ -1216,3 +1216,1629 @@ dd {
     text-decoration: underline;
   }
 }
+
+/* ===================================================================
+   21. TENTES DE TOIT SECTION
+   =================================================================== */
+
+.tente-page {
+  min-height: 100vh;
+}
+
+.tente-hero {
+  background: var(--color-bg-gradient);
+  color: var(--color-white);
+  padding: var(--space-12) 0 var(--space-10);
+}
+
+.tente-hero h1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+.tente-hero-subtitle {
+  font-size: var(--text-lg);
+  opacity: 0.95;
+  max-width: 700px;
+}
+
+.tente-section {
+  padding: var(--space-12) 0;
+}
+
+.tente-section-alt {
+  background-color: var(--color-gray-50);
+}
+
+.tente-intro {
+  font-size: var(--text-lg);
+  color: var(--color-gray-700);
+  max-width: 800px;
+  margin-bottom: var(--space-8);
+}
+
+.tente-intro p {
+  margin-bottom: var(--space-4);
+}
+
+/* Navigation box */
+.tente-nav-box {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.tente-nav-box h2 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-4);
+  color: var(--color-gray-900);
+}
+
+.tente-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-6);
+}
+
+.tente-nav-column h3 {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-500);
+  margin-bottom: var(--space-2);
+}
+
+.tente-nav-column ul {
+  list-style: none;
+}
+
+.tente-nav-column li {
+  margin-bottom: var(--space-1);
+}
+
+.tente-nav-column a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+}
+
+.tente-nav-column a:hover {
+  text-decoration: underline;
+}
+
+/* Section intro */
+.section-intro {
+  font-size: var(--text-lg);
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-8);
+  max-width: 700px;
+}
+
+/* Table wrapper */
+.tente-table-wrapper {
+  overflow-x: auto;
+  margin: var(--space-6) 0;
+}
+
+.tente-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-comparison-table th,
+.tente-comparison-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.tente-comparison-table th {
+  background: var(--color-gray-100);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+}
+
+.tente-comparison-table td {
+  font-size: var(--text-sm);
+}
+
+.tente-comparison-table .highlight-good {
+  color: var(--color-success);
+  font-weight: var(--font-semibold);
+}
+
+.tente-comparison-table .highlight-warning {
+  color: var(--color-warning);
+  font-weight: var(--font-semibold);
+}
+
+.badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-left: var(--space-2);
+}
+
+.badge-best {
+  background: var(--color-success);
+  color: var(--color-white);
+}
+
+.badge-premium {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.price-current {
+  font-weight: var(--font-bold);
+  color: var(--color-gray-900);
+}
+
+.price-original {
+  text-decoration: line-through;
+  color: var(--color-gray-400);
+  font-size: var(--text-sm);
+  margin-left: var(--space-2);
+}
+
+.rating {
+  background: var(--color-success);
+  color: var(--color-white);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+/* Product cards */
+.tente-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.tente-product-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.tente-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tente-product-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.tente-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tente-product-badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  background: var(--color-error);
+  color: var(--color-white);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.tente-product-content {
+  padding: var(--space-5);
+}
+
+.tente-product-content h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+  color: var(--color-gray-900);
+}
+
+.tente-product-positioning {
+  color: var(--color-gray-600);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.tente-product-features {
+  list-style: none;
+  margin-bottom: var(--space-4);
+}
+
+.tente-product-features li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+  padding: var(--space-1) 0;
+  padding-left: var(--space-5);
+  position: relative;
+}
+
+.tente-product-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-success);
+  font-weight: var(--font-bold);
+}
+
+.tente-product-price-box {
+  background: var(--color-gray-50);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+}
+
+.tente-product-prices {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.price-current-large {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-gray-900);
+}
+
+.price-original-large {
+  font-size: var(--text-lg);
+  text-decoration: line-through;
+  color: var(--color-gray-400);
+}
+
+.tente-product-delivery {
+  font-size: var(--text-sm);
+  color: var(--color-success);
+}
+
+.tente-product-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.trust-badge {
+  font-size: var(--text-xs);
+  background: var(--color-gray-100);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-gray-600);
+}
+
+.tente-cta-button {
+  display: inline-block;
+  width: 100%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  text-align: center;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  transition: background var(--transition-base);
+}
+
+.tente-cta-button:hover {
+  background: var(--color-primary-dark);
+}
+
+.tente-cta-button-small {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+/* Benefits grid */
+.tente-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-6);
+}
+
+.tente-benefit-card {
+  background: var(--color-white);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-benefit-icon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-3);
+}
+
+.tente-benefit-card h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-gray-900);
+}
+
+.tente-benefit-card p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+/* Criteria */
+.tente-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.tente-criterion {
+  background: var(--color-white);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-primary);
+}
+
+.tente-criterion h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-gray-900);
+}
+
+.tente-criterion p {
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-3);
+}
+
+.tente-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+}
+
+.tente-link:hover {
+  text-decoration: underline;
+}
+
+.tente-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.tente-links-row a {
+  background: var(--color-gray-100);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-gray-700);
+  text-decoration: none;
+  transition: background var(--transition-base);
+}
+
+.tente-links-row a:hover {
+  background: var(--color-gray-200);
+}
+
+/* Specs */
+.tente-specs-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.tente-specs-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-specs-card h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
+  color: var(--color-gray-900);
+}
+
+.tente-specs-table {
+  width: 100%;
+}
+
+.tente-specs-table td {
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.tente-specs-table td:first-child {
+  color: var(--color-gray-500);
+  width: 40%;
+}
+
+.tente-specs-table td:last-child {
+  color: var(--color-gray-900);
+  font-weight: var(--font-medium);
+}
+
+/* Accessories */
+.tente-accessories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+}
+
+.tente-accessory-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+}
+
+.accessory-check {
+  color: var(--color-success);
+  font-weight: var(--font-bold);
+}
+
+/* FAQ */
+.tente-faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tente-faq-item {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-gray-200);
+}
+
+.tente-faq-item summary {
+  padding: var(--space-4);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.tente-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.tente-faq-item summary::before {
+  content: "+";
+  margin-right: var(--space-2);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.tente-faq-item[open] summary::before {
+  content: "−";
+}
+
+.tente-faq-item p {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-gray-600);
+  font-size: var(--text-sm);
+}
+
+/* CTA Section */
+.tente-cta-section {
+  background: var(--color-bg-gradient);
+}
+
+.tente-cta-box {
+  background: var(--color-white);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tente-cta-box h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.tente-cta-box p {
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-6);
+}
+
+.tente-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.tente-cta-primary {
+  background: var(--color-primary);
+}
+
+.tente-cta-secondary {
+  background: var(--color-gray-700);
+}
+
+/* Internal links */
+.tente-internal-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.tente-internal-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.tente-internal-link:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+.link-icon {
+  font-size: var(--text-3xl);
+}
+
+.link-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-text strong {
+  color: var(--color-gray-900);
+  margin-bottom: var(--space-1);
+}
+
+.link-text span {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+}
+
+/* Warning/Info boxes */
+.tente-warning-box,
+.tente-info-box {
+  background: var(--color-warning);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+  border-left: 4px solid var(--color-warning);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+}
+
+.tente-warning-box h3,
+.tente-info-box h3 {
+  color: var(--color-accent-dark);
+  margin-bottom: var(--space-2);
+}
+
+/* Verdict box */
+.tente-verdict-box {
+  background: var(--color-gray-100);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-6);
+}
+
+.tente-verdict-box h3 {
+  margin-bottom: var(--space-2);
+}
+
+/* Advantages list */
+.tente-advantages-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tente-advantage-item {
+  display: flex;
+  gap: var(--space-4);
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.advantage-number {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-bold);
+  flex-shrink: 0;
+}
+
+.advantage-content h3 {
+  margin-bottom: var(--space-2);
+}
+
+.advantage-content p {
+  color: var(--color-gray-600);
+  font-size: var(--text-sm);
+}
+
+/* Limits */
+.tente-limits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-limit-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.tente-limit-card h3 {
+  color: var(--color-gray-900);
+  margin-bottom: var(--space-2);
+}
+
+.tente-limit-card p {
+  color: var(--color-gray-600);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+.limit-solution {
+  background: var(--color-gray-50);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+/* Criteria grid */
+.tente-criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-criterion-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-criterion-card h3 {
+  margin-bottom: var(--space-3);
+  color: var(--color-gray-900);
+}
+
+.tente-criterion-card ul {
+  list-style: none;
+}
+
+.tente-criterion-card li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  padding: var(--space-1) 0;
+}
+
+/* DIY specific */
+.tente-motivations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-motivation-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-motivation-card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.motivation-reality {
+  background: var(--color-gray-50);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+}
+
+.tente-constraints-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.tente-constraint-item {
+  display: flex;
+  gap: var(--space-4);
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.constraint-number {
+  width: 40px;
+  height: 40px;
+  background: var(--color-error);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-bold);
+  flex-shrink: 0;
+}
+
+.constraint-content h3 {
+  margin-bottom: var(--space-2);
+}
+
+.constraint-content ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin: var(--space-3) 0;
+}
+
+.constraint-content li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+.constraint-cost {
+  background: var(--color-gray-50);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+}
+
+.constraint-warning {
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid var(--color-error);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+}
+
+.tente-analysis-box {
+  background: var(--color-gray-100);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-6);
+}
+
+.tente-analysis-box h3 {
+  margin-bottom: var(--space-3);
+}
+
+.tente-analysis-box ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+}
+
+.tente-profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-profile-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+.tente-profile-yes {
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid var(--color-success);
+}
+
+.tente-profile-no {
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid var(--color-error);
+}
+
+.tente-profile-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.tente-profile-card ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+}
+
+.tente-profile-card li {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+}
+
+.tente-alternative-box {
+  background: var(--color-white);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.tente-alternative-box h3 {
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.tente-alternative-box ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+/* Vehicle pages */
+.tente-compatibility-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.checklist-item {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.check-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--color-success);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-bold);
+  flex-shrink: 0;
+}
+
+.checklist-item h3 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-1);
+}
+
+.checklist-item p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+.tente-vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-vehicle-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-vehicle-recommended {
+  border: 2px solid var(--color-success);
+  position: relative;
+}
+
+.tente-vehicle-recommended::before {
+  content: "Recommandé";
+  position: absolute;
+  top: -10px;
+  left: var(--space-4);
+  background: var(--color-success);
+  color: var(--color-white);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+}
+
+.tente-vehicle-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.tente-vehicle-card p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-2);
+}
+
+/* Option cards */
+.tente-comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-option-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-option-recommended {
+  border: 2px solid var(--color-primary);
+  position: relative;
+}
+
+.tente-option-recommended::before {
+  content: "Recommandé";
+  position: absolute;
+  top: -10px;
+  left: var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+}
+
+.tente-option-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.tente-option-card ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+}
+
+.tente-option-card li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-1);
+}
+
+.option-ideal {
+  background: var(--color-gray-50);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+}
+
+/* Capacity pages */
+.tente-use-cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.tente-use-case {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-use-case h3 {
+  margin-bottom: var(--space-2);
+}
+
+.tente-use-case p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+/* Solutions grid */
+.tente-solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-solution-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-solution-recommended {
+  border: 2px solid var(--color-success);
+}
+
+.solution-best {
+  display: inline-block;
+  background: var(--color-success);
+  color: var(--color-white);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-3);
+}
+
+.tente-solution-card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.tente-solution-card ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin: var(--space-3) 0;
+}
+
+.tente-solution-card li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+.solution-example,
+.solution-cost {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+  font-style: italic;
+}
+
+/* Family config */
+.tente-family-config {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.config-item h3 {
+  margin-bottom: var(--space-4);
+}
+
+.tente-product-card-compact {
+  display: flex;
+  gap: var(--space-4);
+  background: var(--color-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-product-card-compact img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.tente-product-card-compact h4 {
+  margin-bottom: var(--space-1);
+}
+
+.tente-product-card-compact p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-2);
+}
+
+.config-options {
+  background: var(--color-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.config-options p {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+/* Price ranges */
+.tente-price-ranges {
+  margin: var(--space-8) 0;
+}
+
+.price-range-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.price-range-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gray-200);
+}
+
+.price-range-card h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-1);
+}
+
+.range-label {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+  margin-bottom: var(--space-3);
+}
+
+.price-range-card ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+.price-range-card li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+.range-verdict {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.verdict-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-accent-dark);
+}
+
+.verdict-ok {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.verdict-good {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.price-range-good {
+  border-color: var(--color-success);
+}
+
+/* Warnings list */
+.tente-warnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tente-warning-item {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-error);
+}
+
+.tente-warning-item h3 {
+  margin-bottom: var(--space-2);
+}
+
+.tente-warning-item p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+/* Value props */
+.tente-value-props {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.value-prop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.value-icon {
+  font-size: var(--text-lg);
+}
+
+.price-savings {
+  background: var(--color-error);
+  color: var(--color-white);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.tente-comparison-note {
+  background: var(--color-gray-50);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-6);
+}
+
+.tente-comparison-note h3 {
+  margin-bottom: var(--space-2);
+}
+
+/* Alternatives grid */
+.tente-alternatives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+.tente-alternative-card {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.tente-alternative-card h3 {
+  margin-bottom: var(--space-1);
+}
+
+.tente-alternative-card p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-2);
+}
+
+.alternative-tip {
+  background: var(--color-gray-50);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+/* Review cards */
+.tente-review-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-8);
+}
+
+.review-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: var(--color-gray-50);
+}
+
+.review-header img {
+  border-radius: var(--radius-lg);
+}
+
+.review-summary h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.review-positioning {
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-3);
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.rating-stars {
+  color: var(--color-accent);
+  font-size: var(--text-xl);
+}
+
+.rating-value {
+  font-weight: var(--font-bold);
+}
+
+.review-price {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.review-content {
+  padding: var(--space-5);
+}
+
+.review-pros-cons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.review-pros,
+.review-cons {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.review-pros {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.review-cons {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.review-pros h4,
+.review-cons h4 {
+  margin-bottom: var(--space-3);
+}
+
+.review-pros ul,
+.review-cons ul {
+  list-style: none;
+}
+
+.review-pros li,
+.review-cons li {
+  font-size: var(--text-sm);
+  padding: var(--space-1) 0;
+  padding-left: var(--space-5);
+  position: relative;
+}
+
+.review-pros li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-success);
+  font-weight: var(--font-bold);
+}
+
+.review-cons li::before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: var(--color-error);
+  font-weight: var(--font-bold);
+}
+
+.review-verdict {
+  background: var(--color-gray-50);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+.review-verdict h4 {
+  margin-bottom: var(--space-3);
+}
+
+.review-verdict p {
+  margin-bottom: var(--space-4);
+  color: var(--color-gray-600);
+}
+
+/* Brand overview */
+.tente-brand-overview {
+  margin-top: var(--space-8);
+}
+
+.brand-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.brand-info-item {
+  background: var(--color-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.info-label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+  margin-bottom: var(--space-1);
+}
+
+.info-value {
+  font-weight: var(--font-semibold);
+}
+
+.brand-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.brand-badge {
+  background: var(--color-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+}
+
+.brand-badge strong {
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.brand-badge span {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+/* Recommendation box */
+.tente-recommendation-box {
+  background: var(--color-gray-50);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-6);
+}
+
+.tente-recommendation-box h3 {
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-5);
+}
+
+.recommendation-item {
+  background: var(--color-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.recommendation-item h4 {
+  margin-bottom: var(--space-3);
+}
+
+.recommendation-item ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+}
+
+.recommendation-item li {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+}
+
+.tente-product-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.tente-product-highlights .highlight {
+  background: var(--color-gray-100);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-gray-700);
+}
+
+/* Family layout visual */
+.tente-family-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.layout-visual {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.layout-tent,
+.layout-vehicle {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.layout-tent {
+  border: 2px solid var(--color-primary);
+}
+
+.layout-vehicle {
+  border: 2px solid var(--color-secondary);
+}
+
+.layout-comfort {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+}
+
+.layout-details {
+  background: var(--color-white);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.layout-details h3 {
+  margin-bottom: var(--space-3);
+}
+
+.layout-details ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.layout-details li {
+  margin-bottom: var(--space-2);
+}
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .tente-hero h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .tente-family-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .review-header {
+    flex-direction: column;
+  }
+
+  .review-header img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .tente-value-props {
+    grid-template-columns: 1fr;
+  }
+}
