@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit 4 Places : Solutions pour Familles Nombreuses',
-  description: 'Tente de toit 4 places pour familles : quelles options ? Guide complet sur les grandes tentes, solutions alternatives et conseils pour voyager à 4.',
+  title: 'Tente de toit 4 places : pour familles nombreuses',
+  description: 'Tente de toit 4 places pour familles : quelles options ? Grandes tentes, solutions alternatives et conseils pour voyager à 4.',
   keywords: ['tente de toit 4 places', 'tente de toit familiale', 'grande tente de toit', 'tente toit 4 personnes'],
 }
 
@@ -186,7 +186,7 @@ export default function TenteToit4PlacesPage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

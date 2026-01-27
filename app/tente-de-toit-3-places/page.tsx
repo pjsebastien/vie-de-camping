@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit 3 Places : Idéale pour Petites Familles et Trios',
-  description: 'Tente de toit 3 places : le format parfait pour un couple avec enfant ou un groupe de trois amis. Guide complet et meilleurs modèles 2025.',
+  title: 'Tente de toit 3 places : pour petites familles et trios',
+  description: 'Tente de toit 3 places : le format parfait pour un couple avec enfant ou un groupe de trois amis. Meilleurs modèles et conseils d\'achat.',
   keywords: ['tente de toit 3 places', 'tente de toit famille', 'tente de toit trio', 'tente toit enfant'],
 }
 
@@ -174,7 +174,7 @@ export default function TenteToit3PlacesPage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

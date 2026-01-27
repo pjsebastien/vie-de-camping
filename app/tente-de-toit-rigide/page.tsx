@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice, getDiscountPercentage } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit Rigide : Guide Complet 2025, Avantages et Comparatif',
-  description: 'Tout savoir sur les tentes de toit rigides (hardshell). Avantages vs tentes souples, critères de choix, meilleurs modèles 2025 et conseils d\'installation.',
+  title: 'Tente de toit rigide : avantages et inconvénients',
+  description: 'Tout savoir sur les tentes de toit rigides (hardshell). Avantages vs tentes souples, critères de choix, meilleurs modèles et conseils d\'installation.',
   keywords: ['tente de toit rigide', 'hardshell', 'tente de toit coque dure', 'comparatif tente rigide', 'avantages tente rigide'],
   openGraph: {
-    title: 'Tente de Toit Rigide : Guide Complet et Comparatif 2025',
-    description: 'Découvrez pourquoi les tentes de toit rigides dominent le marché. Guide complet avec comparatif des meilleurs modèles.',
+    title: 'Tente de toit rigide : avantages et inconvénients',
+    description: 'Découvrez pourquoi les tentes de toit rigides dominent le marché. Comparatif des meilleurs modèles et conseils pour bien choisir.',
     type: 'article',
   },
 }
@@ -35,7 +35,7 @@ export default function TenteToitRigidePage() {
             <span>Tentes Rigides</span>
           </nav>
 
-          <div class="tente-hero-content"><h1>Tente de Toit Rigide : Le Guide Complet 2025</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit rigide : le meilleur pour le camping</h1></div>
           <p className="tente-hero-subtitle">
             Pourquoi les tentes de toit rigides (hardshell) sont devenues la référence pour le camping itinérant.
             Avantages, inconvénients et comparatif des meilleurs modèles.
@@ -60,7 +60,7 @@ export default function TenteToitRigidePage() {
       {/* Rigide vs Souple */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Tente de Toit Rigide vs Souple : Le Comparatif</h2>
+          <h2>Tente de toit rigide vs souple : comparatif</h2>
 
           <div className="tente-table-wrapper">
             <table className="tente-comparison-table">
@@ -486,8 +486,8 @@ export default function TenteToitRigidePage() {
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
               <span className="link-text">
-                <strong>Comparatif Complet</strong>
-                <span>Toutes les meilleures tentes de toit 2025</span>
+                <strong>comparatif</strong>
+                <span>Toutes les meilleures tentes de toit</span>
               </span>
             </Link>
             <Link href="/tente-de-toit-4x4/" className="tente-internal-link">

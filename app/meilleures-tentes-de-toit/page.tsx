@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   keywords: ['tente de toit', 'comparatif tente de toit', 'meilleure tente de toit', 'tente de toit rigide', 'tente de toit 4x4', 'tente de toit voiture'],
   openGraph: {
     title: 'Meilleures tentes de toit : comparatif et sélection',
-    description: 'Comparatif complet pour choisir la meilleure tente de toit. Avis et conseils d\'experts.',
+    description: 'Comparatif des meilleures tentes de toit pour choisir la vôtre. Avis et conseils d\'experts.',
     type: 'article',
   },
 }
@@ -36,7 +36,7 @@ export default function MeilleuresTentesToitPage() {
           </nav>
 
           <div className="tente-hero-content">
-            <h1>Meilleures tentes de toit : le comparatif complet</h1>
+            <h1>Meilleures tentes de toit : comparatif et sélection</h1>
             <p className="tente-hero-subtitle">
               Transformez votre véhicule en refuge mobile. Comparez les meilleures tentes de toit rigides,
               testées et approuvées pour SUV, 4x4 et van.
@@ -79,7 +79,7 @@ export default function MeilleuresTentesToitPage() {
                 </ul>
               </div>
               <div className="tente-nav-column">
-                <h3>Guides spécialisés</h3>
+                <h3>Ressources</h3>
                 <ul>
                   <li><Link href="/tente-de-toit-rigide/">Tentes de toit rigides</Link></li>
                   <li><Link href="/tente-de-toit-pas-cher/">Tentes de toit pas chères</Link></li>
@@ -95,9 +95,9 @@ export default function MeilleuresTentesToitPage() {
       {/* Comparatif des modèles */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Comparatif des Meilleures Tentes de Toit Rigides</h2>
+          <h2>Comparatif des meilleures tentes de toit rigides</h2>
           <p className="section-intro">
-            Nous avons analysé les meilleures tentes de toit rigides du marché. Voici notre sélection 2025,
+            Nous avons analysé les meilleures tentes de toit rigides du marché. Voici notre sélection,
             basée sur le rapport qualité-prix, la durabilité et le confort.
           </p>
 
@@ -252,10 +252,136 @@ export default function MeilleuresTentesToitPage() {
         </div>
       </section>
 
+      {/* Vidéos produits */}
+      <section className="tente-section">
+        <div className="container">
+          <h2>Vidéos de démonstration</h2>
+          <p className="section-intro">
+            Découvrez les tentes KAILOP en action. Regardez comment elles s'ouvrent, se ferment et vous accueillent.
+          </p>
+
+          <div className="tente-video-grid">
+            {/* KP19PRO Video */}
+            <div className="tente-video-card">
+              <div className="tente-video-container">
+                <iframe
+                  width="100%"
+                  height="400"
+                  src={`https://www.youtube.com/embed/${kp19pro.media.video.youtube_id}`}
+                  title={`Tente de toit KAILOP ${kp19pro.model} - Démonstration`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ borderRadius: '8px' }}
+                />
+              </div>
+              <h3>KAILOP {kp19pro.model} - Ouverture arrière</h3>
+              <p>Voyez comment cette tente s'ouvre en 5 secondes et transforme votre véhicule.</p>
+            </div>
+
+            {/* ST09PRO Video */}
+            <div className="tente-video-card">
+              <div className="tente-video-container">
+                <iframe
+                  width="100%"
+                  height="400"
+                  src={`https://www.youtube.com/embed/${st09pro.media.video.youtube_id}`}
+                  title={`Tente de toit KAILOP ${st09pro.model} - Démonstration`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ borderRadius: '8px' }}
+                />
+              </div>
+              <h3>KAILOP {st09pro.model} - Ouverture latérale</h3>
+              <p>Découvrez l'ouverture latérale et la ventilation améliorée de ce modèle premium.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Galerie d'images */}
+      <section className="tente-section tente-section-alt">
+        <div className="container">
+          <h2>Galerie photos</h2>
+          <p className="section-intro">
+            Explorez les détails de chaque tente à travers notre galerie photo complète.
+          </p>
+
+          <div className="tente-gallery-section">
+            <div className="tente-gallery-model">
+              <h3>KAILOP {kp19pro.model}</h3>
+              <div className="tente-image-gallery">
+                {kp19pro.media.images.general.map((image, index) => (
+                  <div key={index} className="tente-gallery-item">
+                    <Image
+                      src={image}
+                      alt={`Tente de toit KAILOP ${kp19pro.model} - Vue ${index + 1}`}
+                      width={350}
+                      height={280}
+                      style={{ objectFit: 'cover', borderRadius: '8px' }}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="tente-interior-gallery">
+                <h4>Intérieur</h4>
+                <div className="tente-image-gallery">
+                  {kp19pro.media.images.interior.map((image, index) => (
+                    <div key={index} className="tente-gallery-item">
+                      <Image
+                        src={image}
+                        alt={`Intérieur tente KAILOP ${kp19pro.model} - Vue ${index + 1}`}
+                        width={350}
+                        height={280}
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="tente-gallery-model">
+              <h3>KAILOP {st09pro.model}</h3>
+              <div className="tente-image-gallery">
+                {st09pro.media.images.general.map((image, index) => (
+                  <div key={index} className="tente-gallery-item">
+                    <Image
+                      src={image}
+                      alt={`Tente de toit KAILOP ${st09pro.model} - Vue ${index + 1}`}
+                      width={350}
+                      height={280}
+                      style={{ objectFit: 'cover', borderRadius: '8px' }}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="tente-interior-gallery">
+                <h4>Intérieur</h4>
+                <div className="tente-image-gallery">
+                  {st09pro.media.images.interior.map((image, index) => (
+                    <div key={index} className="tente-gallery-item">
+                      <Image
+                        src={image}
+                        alt={`Intérieur tente KAILOP ${st09pro.model} - Vue ${index + 1}`}
+                        width={350}
+                        height={280}
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pourquoi choisir une tente de toit */}
       <section className="tente-section">
         <div className="container">
-          <h2>Pourquoi Choisir une Tente de Toit ?</h2>
+          <h2>Pourquoi choisir une tente de toit ?</h2>
 
           <div className="tente-benefits-grid">
             <div className="tente-benefit-card">
@@ -300,7 +426,7 @@ export default function MeilleuresTentesToitPage() {
       {/* Comment choisir */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Comment Choisir sa Tente de Toit ?</h2>
+          <h2>Comment choisir sa tente de toit ?</h2>
 
           <div className="tente-criteria-list">
             <div className="tente-criterion">
@@ -354,7 +480,7 @@ export default function MeilleuresTentesToitPage() {
       {/* Spécifications techniques détaillées */}
       <section className="tente-section">
         <div className="container">
-          <h2>Spécifications Techniques Complètes</h2>
+          <h2>Spécifications techniques</h2>
 
           <div className="tente-specs-comparison">
             <div className="tente-specs-card">
@@ -459,7 +585,7 @@ export default function MeilleuresTentesToitPage() {
       {/* Accessoires inclus */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Accessoires Inclus avec Chaque Tente</h2>
+          <h2>Accessoires inclus</h2>
           <p className="section-intro">
             Les tentes KAILOP sont livrées avec tout le nécessaire pour partir immédiatement.
             Aucun achat supplémentaire requis.
@@ -479,7 +605,7 @@ export default function MeilleuresTentesToitPage() {
       {/* FAQ */}
       <section className="tente-section">
         <div className="container">
-          <h2>Questions Fréquentes sur les Tentes de Toit</h2>
+          <h2>Questions fréquentes</h2>
 
           <div className="tente-faq">
             <details className="tente-faq-item">
@@ -541,7 +667,7 @@ export default function MeilleuresTentesToitPage() {
       <section className="tente-section tente-cta-section">
         <div className="container">
           <div className="tente-cta-box">
-            <h2>Prêt à Transformer Votre Véhicule en Refuge Mobile ?</h2>
+            <h2>Prêt à transformer votre véhicule en refuge mobile ?</h2>
             <p>
               Découvrez les tentes de toit KAILOP, garanties 5 ans, livrées gratuitement depuis la France.
             </p>
@@ -565,33 +691,33 @@ export default function MeilleuresTentesToitPage() {
       {/* Maillage interne */}
       <section className="tente-section">
         <div className="container">
-          <h2>Explorer Nos Guides Tentes de Toit</h2>
+          <h2>Ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/tente-de-toit-rigide/" className="tente-internal-link">
               <span className="link-icon">🏠</span>
               <span className="link-text">
-                <strong>Tentes de Toit Rigides</strong>
+                <strong>Tentes de toit rigides</strong>
                 <span>Avantages, inconvénients et comparatif</span>
               </span>
             </Link>
             <Link href="/tente-de-toit-4x4/" className="tente-internal-link">
               <span className="link-icon">🚙</span>
               <span className="link-text">
-                <strong>Tente de Toit pour 4x4</strong>
-                <span>Guide spécial tout-terrain</span>
+                <strong>Tente de toit pour 4x4</strong>
+                <span>Overlanding et tout-terrain</span>
               </span>
             </Link>
             <Link href="/tente-de-toit-pas-cher/" className="tente-internal-link">
               <span className="link-icon">💰</span>
               <span className="link-text">
-                <strong>Tentes de Toit Pas Chères</strong>
+                <strong>Tentes de toit pas chères</strong>
                 <span>Les meilleures options économiques</span>
               </span>
             </Link>
             <Link href="/fabriquer-tente-toit-diy/" className="tente-internal-link">
               <span className="link-icon">🔧</span>
               <span className="link-text">
-                <strong>Fabriquer sa Tente de Toit</strong>
+                <strong>Fabriquer sa tente de toit</strong>
                 <span>DIY : fausse bonne idée ?</span>
               </span>
             </Link>

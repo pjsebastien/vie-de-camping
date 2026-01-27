@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit 4x4 : Guide Complet pour Overlanding et Aventure',
-  description: 'La tente de toit pour 4x4 est l\'équipement ultime de l\'overlanding. Guide complet : meilleurs modèles, installation sur galerie, conseils tout-terrain.',
+  title: 'Tente de toit pour 4x4 : overlanding et aventure',
+  description: 'La tente de toit pour 4x4 est l\'équipement ultime de l\'overlanding. Meilleurs modèles, installation sur galerie, conseils tout-terrain.',
   keywords: ['tente de toit 4x4', 'tente 4x4', 'overlanding', 'tente de toit tout terrain', 'camping 4x4'],
 }
 
@@ -26,7 +26,7 @@ export default function TenteToit4x4Page() {
             <span>/</span>
             <span>Pour 4x4</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit 4x4 : L'Équipement Ultime pour l'Aventure</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit pour 4x4 : l'équipement ultime de l'overlanding</h1></div>
           <p className="tente-hero-subtitle">
             Le combo 4x4 + tente de toit est la référence de l'overlanding. Accédez aux spots les plus reculés
             et dormez n'importe où en toute autonomie.
@@ -44,7 +44,7 @@ export default function TenteToit4x4Page() {
             </p>
           </div>
 
-          <h2>Pourquoi le 4x4 Est Idéal pour la Tente de Toit</h2>
+          <h2>Pourquoi le 4x4 est idéal pour la tente de toit</h2>
           <div className="tente-benefits-grid">
             <div className="tente-benefit-card">
               <div className="tente-benefit-icon">🏔️</div>
@@ -235,7 +235,7 @@ export default function TenteToit4x4Page() {
 
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Guides Connexes</h2>
+          <h2>Ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/tente-de-toit-voiture/" className="tente-internal-link">
               <span className="link-icon">🚗</span>
@@ -247,7 +247,7 @@ export default function TenteToit4x4Page() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles 2025</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

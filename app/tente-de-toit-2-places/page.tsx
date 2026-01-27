@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit 2 Places : Guide Complet pour Couples et Solo',
+  title: 'Tente de toit 2 places : pour couples et solo',
   description: 'Les meilleures tentes de toit 2 places pour voyager en couple ou en solo. Modèles compacts, légers et confortables. Comparatif et conseils d\'achat.',
   keywords: ['tente de toit 2 places', 'tente de toit couple', 'tente de toit solo', 'petite tente de toit'],
 }
@@ -26,7 +26,7 @@ export default function TenteToit2PlacesPage() {
             <span>/</span>
             <span>2 Places</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit 2 Places : Le Choix Idéal pour Couples et Aventuriers Solo</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit 2 places : le choix parfait pour couples et solopistes</h1></div>
           <p className="tente-hero-subtitle">
             Compacte, légère et suffisante pour deux : la tente 2 places est le format le plus populaire
             pour le camping itinérant en couple ou les escapades en solo avec du confort.
@@ -176,7 +176,7 @@ export default function TenteToit2PlacesPage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

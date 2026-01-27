@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit pour Voiture : Guide 2025 et Modèles Compatibles',
-  description: 'Comment installer une tente de toit sur votre voiture ? Guide complet : compatibilité, charge maximale, meilleurs modèles et conseils d\'installation pour berlines, breaks et SUV.',
+  title: 'Tente de toit pour voiture : installation et modèles',
+  description: 'Comment installer une tente de toit sur votre voiture ? Compatibilité, charge maximale, meilleurs modèles et conseils d\'installation pour berlines, breaks et SUV.',
   keywords: ['tente de toit voiture', 'tente de toit pour voiture', 'tente voiture', 'camping voiture toit'],
 }
 
@@ -26,7 +26,7 @@ export default function TenteToitVoiturePage() {
             <span>/</span>
             <span>Pour Voiture</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit pour Voiture : Le Guide Complet</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit pour voiture : compatibilité et installation</h1></div>
           <p className="tente-hero-subtitle">
             Oui, vous pouvez installer une tente de toit sur votre voiture ! Découvrez les critères
             de compatibilité et les meilleurs modèles pour berlines, breaks et petits SUV.
@@ -44,7 +44,7 @@ export default function TenteToitVoiturePage() {
             </p>
           </div>
 
-          <h2>Votre Voiture Est-elle Compatible ?</h2>
+          <h2>Votre voiture est-elle compatible ?</h2>
           <div className="tente-compatibility-checklist">
             <div className="checklist-item">
               <span className="check-icon">✓</span>
@@ -160,7 +160,7 @@ export default function TenteToitVoiturePage() {
 
       <section className="tente-section">
         <div className="container">
-          <h2>Guides Connexes</h2>
+          <h2>Ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/tente-de-toit-4x4/" className="tente-internal-link">
               <span className="link-icon">🚙</span>
@@ -172,7 +172,7 @@ export default function TenteToitVoiturePage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles 2025</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

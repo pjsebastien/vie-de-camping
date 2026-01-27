@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit pour Van : Guide Complet Fourgons et Utilitaires',
-  description: 'Installer une tente de toit sur votre van ou fourgon aménagé : guide complet. Compatibilité, installation sur toit relevable ou galerie, meilleurs modèles.',
+  title: 'Tente de toit pour van : fourgons et utilitaires',
+  description: 'Installer une tente de toit sur votre van ou fourgon aménagé : compatibilité, installation sur toit relevable ou galerie, meilleurs modèles.',
   keywords: ['tente de toit van', 'tente van aménagé', 'tente fourgon', 'tente de toit utilitaire', 'camping van'],
 }
 
@@ -227,7 +227,7 @@ export default function TenteToitVanPage() {
 
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Guides Connexes</h2>
+          <h2>Ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/tente-de-toit-voiture/" className="tente-internal-link">
               <span className="link-icon">🚗</span>
@@ -239,7 +239,7 @@ export default function TenteToitVanPage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles 2025</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

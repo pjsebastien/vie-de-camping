@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit 5 Places : Solutions pour Grandes Familles',
-  description: 'Tente de toit 5 places : existe-t-elle vraiment ? Guide complet sur les solutions pour voyager à 5+ en famille avec tentes de toit.',
+  title: 'Tente de toit 5 places : pour grandes familles',
+  description: 'Tente de toit 5 places : existe-t-elle vraiment ? Solutions pour voyager à 5+ en famille avec tentes de toit.',
   keywords: ['tente de toit 5 places', 'tente de toit grande famille', 'tente toit 5 personnes', 'camping famille nombreuse'],
 }
 
@@ -191,7 +191,7 @@ export default function TenteToit5PlacesPage() {
             </Link>
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
           </div>
         </div>

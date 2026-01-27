@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice, getDiscountPercentage } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Tente de Toit Pas Cher : Meilleures Options Qualité-Prix 2025',
+  title: 'Tente de Toit Pas Cher : Meilleures Options Qualité-Prix',
   description: 'Tente de toit pas cher : les meilleures options sans sacrifier la qualité. Comparatif des tentes économiques, pièges à éviter et vraies bonnes affaires.',
   keywords: ['tente de toit pas cher', 'tente de toit prix', 'tente de toit économique', 'tente de toit budget', 'tente toit bon rapport qualité prix'],
 }
@@ -276,11 +276,11 @@ export default function TenteToitPasCherPage() {
 
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Guides Connexes</h2>
+          <h2>Ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>Comparatif Complet</strong><span>Tous les modèles 2025</span></span>
+              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
             </Link>
             <Link href="/tente-de-toit-rigide/" className="tente-internal-link">
               <span className="link-icon">🏠</span>
