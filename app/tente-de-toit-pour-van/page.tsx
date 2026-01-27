@@ -26,7 +26,7 @@ export default function TenteToitVanPage() {
             <span>/</span>
             <span>Pour Van</span>
           </nav>
-          <h1>Tente de Toit pour Van : Doublez Votre Espace de Couchage</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit pour Van : Doublez Votre Espace de Couchage</h1></div>
           <p className="tente-hero-subtitle">
             Vous avez un van aménagé mais pas assez de couchages ? La tente de toit transforme
             votre fourgon en véritable camping-car familial.
@@ -196,7 +196,7 @@ export default function TenteToitVanPage() {
                   <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
                 </div>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>

@@ -26,7 +26,7 @@ export default function TenteToitPasCherPage() {
             <span>/</span>
             <span>Pas Cher</span>
           </nav>
-          <h1>Tente de Toit Pas Cher : Les Vraies Bonnes Affaires</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit Pas Cher : Les Vraies Bonnes Affaires</h1></div>
           <p className="tente-hero-subtitle">
             Budget serré mais envie de liberté ? Découvrez comment trouver une tente de toit
             économique sans tomber dans les pièges de la mauvaise qualité.
@@ -196,7 +196,7 @@ export default function TenteToitPasCherPage() {
                 <a
                   href={kp19pro.affiliate.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="tente-cta-button"
                 >
                   {kp19pro.affiliate.cta_label}

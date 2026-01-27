@@ -26,7 +26,7 @@ export default function TenteToitVoiturePage() {
             <span>/</span>
             <span>Pour Voiture</span>
           </nav>
-          <h1>Tente de Toit pour Voiture : Le Guide Complet</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit pour Voiture : Le Guide Complet</h1></div>
           <p className="tente-hero-subtitle">
             Oui, vous pouvez installer une tente de toit sur votre voiture ! Découvrez les critères
             de compatibilité et les meilleurs modèles pour berlines, breaks et petits SUV.
@@ -129,7 +129,7 @@ export default function TenteToitVoiturePage() {
                   <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
                 </div>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>

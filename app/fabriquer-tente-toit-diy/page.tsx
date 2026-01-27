@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Fabriquer sa Tente de Toit DIY : Guide Complet, Coûts et Réalité',
-  description: 'Fabriquer sa propre tente de toit : bonne ou mauvaise idée ? Analyse complète des coûts, contraintes techniques, sécurité et comparaison honnête avec les modèles du commerce.',
+  title: 'Fabriquer sa tente de toit : mythe ou réalité ?',
+  description: 'Fabriquer sa propre tente de toit : bonne ou mauvaise idée ? Analyse des coûts réels, contraintes techniques, sécurité et comparaison avec les modèles du commerce.',
   keywords: ['fabriquer tente de toit', 'tente de toit DIY', 'tente de toit maison', 'construire tente de toit', 'tente de toit fait maison'],
   openGraph: {
-    title: 'Fabriquer sa Tente de Toit DIY : Le Guide Honnête',
-    description: 'Tout ce qu\'il faut savoir avant de se lancer dans la fabrication d\'une tente de toit maison.',
+    title: 'Fabriquer sa tente de toit : mythe ou réalité ?',
+    description: 'Tout ce qu\'il faut savoir avant de vous lancer dans la fabrication d\'une tente de toit maison.',
     type: 'article',
   },
 }
@@ -26,16 +26,18 @@ export default function FabriquerTenteToitDiyPage() {
           <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <Link href="/meilleures-tentes-de-toit/">Tentes de Toit</Link>
+            <Link href="/meilleures-tentes-de-toit/">Tentes de toit</Link>
             <span>/</span>
-            <span>Fabriquer sa Tente DIY</span>
+            <span>DIY et fabrication</span>
           </nav>
 
-          <h1>Fabriquer sa Tente de Toit DIY : Bonne Idée ?</h1>
-          <p className="tente-hero-subtitle">
-            Construire soi-même sa tente de toit pour économiser : fantasme ou réalité ?
-            Analyse objective des coûts, contraintes et risques.
-          </p>
+          <div className="tente-hero-content">
+            <h1>Fabriquer sa tente de toit : mythe ou réalité ?</h1>
+            <p className="tente-hero-subtitle">
+              Construire soi-même sa tente de toit pour économiser : est-ce vraiment possible ?
+              Analyse des coûts réels, contraintes techniques et risques.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -371,7 +373,7 @@ export default function FabriquerTenteToitDiyPage() {
               <a
                 href={brand.affiliate.default_url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="tente-cta-button tente-cta-primary"
               >
                 Découvrir les tentes KAILOP
@@ -434,13 +436,13 @@ export default function FabriquerTenteToitDiyPage() {
       {/* Maillage interne */}
       <section className="tente-section">
         <div className="container">
-          <h2>Continuez Votre Recherche</h2>
+          <h2>Autres ressources tentes de toit</h2>
           <div className="tente-internal-links">
             <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
               <span className="link-icon">🏆</span>
               <span className="link-text">
-                <strong>Comparatif Tentes de Toit</strong>
-                <span>Les meilleurs modèles 2025</span>
+                <strong>Comparatif tentes de toit</strong>
+                <span>Les meilleurs modèles rigides</span>
               </span>
             </Link>
             <Link href="/tente-de-toit-rigide/" className="tente-internal-link">

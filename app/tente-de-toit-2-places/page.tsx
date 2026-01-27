@@ -26,7 +26,7 @@ export default function TenteToit2PlacesPage() {
             <span>/</span>
             <span>2 Places</span>
           </nav>
-          <h1>Tente de Toit 2 Places : Le Choix Idéal pour Couples et Aventuriers Solo</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit 2 Places : Le Choix Idéal pour Couples et Aventuriers Solo</h1></div>
           <p className="tente-hero-subtitle">
             Compacte, légère et suffisante pour deux : la tente 2 places est le format le plus populaire
             pour le camping itinérant en couple ou les escapades en solo avec du confort.
@@ -103,7 +103,7 @@ export default function TenteToit2PlacesPage() {
                   <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
                 </div>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>
@@ -133,7 +133,7 @@ export default function TenteToit2PlacesPage() {
                   <span className="price-current-large">{formatPrice(st09pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(st09pro.pricing.original_eur)}</span>
                 </div>
-                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {st09pro.affiliate.cta_label}
                 </a>
               </div>

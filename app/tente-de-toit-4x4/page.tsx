@@ -26,7 +26,7 @@ export default function TenteToit4x4Page() {
             <span>/</span>
             <span>Pour 4x4</span>
           </nav>
-          <h1>Tente de Toit 4x4 : L'Équipement Ultime pour l'Aventure</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit 4x4 : L'Équipement Ultime pour l'Aventure</h1></div>
           <p className="tente-hero-subtitle">
             Le combo 4x4 + tente de toit est la référence de l'overlanding. Accédez aux spots les plus reculés
             et dormez n'importe où en toute autonomie.
@@ -174,7 +174,7 @@ export default function TenteToit4x4Page() {
                   <span className="price-current-large">{formatPrice(st09pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(st09pro.pricing.original_eur)}</span>
                 </div>
-                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {st09pro.affiliate.cta_label}
                 </a>
               </div>
@@ -204,7 +204,7 @@ export default function TenteToit4x4Page() {
                   <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
                 </div>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>

@@ -35,7 +35,7 @@ export default function TenteToitRigidePage() {
             <span>Tentes Rigides</span>
           </nav>
 
-          <h1>Tente de Toit Rigide : Le Guide Complet 2025</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit Rigide : Le Guide Complet 2025</h1></div>
           <p className="tente-hero-subtitle">
             Pourquoi les tentes de toit rigides (hardshell) sont devenues la référence pour le camping itinérant.
             Avantages, inconvénients et comparatif des meilleurs modèles.
@@ -320,7 +320,7 @@ export default function TenteToitRigidePage() {
                 <a
                   href={kp19pro.affiliate.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="tente-cta-button"
                 >
                   {kp19pro.affiliate.cta_label}
@@ -366,7 +366,7 @@ export default function TenteToitRigidePage() {
                 <a
                   href={st09pro.affiliate.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="tente-cta-button"
                 >
                   {st09pro.affiliate.cta_label}

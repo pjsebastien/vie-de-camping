@@ -26,7 +26,7 @@ export default function TenteToit4PlacesPage() {
             <span>/</span>
             <span>4 Places</span>
           </nav>
-          <h1>Tente de Toit 4 Places : Solutions pour Voyager en Famille</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit 4 Places : Solutions pour Voyager en Famille</h1></div>
           <p className="tente-hero-subtitle">
             Vous êtes 4 et voulez dormir ensemble ? Ce guide explore les options : grandes tentes,
             tentes multiples, ou solutions hybrides.
@@ -133,7 +133,7 @@ export default function TenteToit4PlacesPage() {
                   <h4>KAILOP {st09pro.model}</h4>
                   <p>La plus spacieuse : {st09pro.dimensions.open_cm.length} x {st09pro.dimensions.open_cm.width} cm</p>
                   <span className="price-current">{formatPrice(st09pro.pricing.current_eur)}</span>
-                  <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button-small">
+                  <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button-small">
                     Voir le produit
                   </a>
                 </div>

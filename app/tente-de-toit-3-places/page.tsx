@@ -26,7 +26,7 @@ export default function TenteToit3PlacesPage() {
             <span>/</span>
             <span>3 Places</span>
           </nav>
-          <h1>Tente de Toit 3 Places : Le Format Familial Compact</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit 3 Places : Le Format Familial Compact</h1></div>
           <p className="tente-hero-subtitle">
             Couple avec enfant, trio d'amis ou voyageur solo qui aime l'espace : la tente 3 places
             offre la flexibilité idéale sans compromis sur le poids.
@@ -98,7 +98,7 @@ export default function TenteToit3PlacesPage() {
                   <span className="price-current-large">{formatPrice(st09pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(st09pro.pricing.original_eur)}</span>
                 </div>
-                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {st09pro.affiliate.cta_label}
                 </a>
               </div>
@@ -131,7 +131,7 @@ export default function TenteToit3PlacesPage() {
                   <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
                   <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
                 </div>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>

@@ -1226,22 +1226,47 @@ dd {
 }
 
 .tente-hero {
-  background: var(--color-bg-gradient);
+  background: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
   color: var(--color-white);
   padding: var(--space-12) 0 var(--space-10);
+  position: relative;
+  overflow: hidden;
+}
+
+.tente-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="20" r="30" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="80" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+  background-size: cover;
+  z-index: 0;
+}
+
+.tente-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.tente-hero-content {
+  max-width: 700px;
 }
 
 .tente-hero h1 {
-  font-size: var(--text-3xl);
+  font-size: var(--text-4xl);
   font-weight: var(--font-bold);
   margin-bottom: var(--space-4);
-  line-height: 1.2;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .tente-hero-subtitle {
   font-size: var(--text-lg);
-  opacity: 0.95;
+  opacity: 0.98;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .tente-section {

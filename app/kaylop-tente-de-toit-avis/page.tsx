@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'KAILOP Tente de Toit Avis : Test Complet et Retours Utilisateurs 2025',
-  description: 'Avis complet sur les tentes de toit KAILOP : qualité, fiabilité, SAV. Notre test des modèles KP19PRO et ST09PRO avec retours d\'utilisateurs réels.',
+  title: 'KAILOP : avis et test complet des tentes de toit',
+  description: 'Avis complet sur les tentes de toit KAILOP : qualité, fiabilité et service client. Test détaillé des modèles KP19PRO et ST09PRO.',
   keywords: ['kailop avis', 'kailop tente de toit', 'avis tente kailop', 'test kailop', 'kailop qualité'],
 }
 
@@ -22,15 +22,17 @@ export default function KaylopAvisPage() {
           <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <Link href="/meilleures-tentes-de-toit/">Tentes de Toit</Link>
+            <Link href="/meilleures-tentes-de-toit/">Tentes de toit</Link>
             <span>/</span>
             <span>Avis KAILOP</span>
           </nav>
-          <h1>KAILOP Tente de Toit : Avis Complet et Honnête</h1>
-          <p className="tente-hero-subtitle">
-            KAILOP propose des tentes de toit rigides à prix compétitif. Mais que valent-elles vraiment ?
-            Notre analyse complète basée sur les spécifications et retours utilisateurs.
-          </p>
+          <div className="tente-hero-content">
+            <h1>KAILOP : avis et test des tentes de toit</h1>
+            <p className="tente-hero-subtitle">
+              KAILOP propose des tentes de toit rigides à prix compétitif. Mais que valent-elles vraiment ?
+              Analyse détaillée basée sur les spécifications et retours utilisateurs.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -133,7 +135,7 @@ export default function KaylopAvisPage() {
                   une tente rigide fiable sans se ruiner. L'ouverture arrière est classique mais efficace.
                   Le rapport qualité-prix est imbattable dans cette gamme.
                 </p>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {kp19pro.affiliate.cta_label}
                 </a>
               </div>
@@ -191,7 +193,7 @@ export default function KaylopAvisPage() {
                   l'espace supplémentaire et la meilleure ventilation. Si vous prévoyez des voyages dans
                   des régions chaudes ou des séjours de plusieurs nuits au même endroit, c'est le meilleur choix.
                 </p>
-                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer" className="tente-cta-button">
+                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
                   {st09pro.affiliate.cta_label}
                 </a>
               </div>
@@ -340,7 +342,7 @@ export default function KaylopAvisPage() {
               <a
                 href={kp19pro.affiliate.url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="tente-cta-button tente-cta-primary"
               >
                 Voir le KP19PRO ({formatPrice(kp19pro.pricing.current_eur)})
@@ -348,7 +350,7 @@ export default function KaylopAvisPage() {
               <a
                 href={st09pro.affiliate.url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="tente-cta-button tente-cta-secondary"
               >
                 Voir le ST09PRO ({formatPrice(st09pro.pricing.current_eur)})

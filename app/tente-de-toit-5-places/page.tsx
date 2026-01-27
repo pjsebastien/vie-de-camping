@@ -24,7 +24,7 @@ export default function TenteToit5PlacesPage() {
             <span>/</span>
             <span>5 Places</span>
           </nav>
-          <h1>Tente de Toit 5 Places : Mythe ou Réalité ?</h1>
+          <div class="tente-hero-content"><h1>Tente de Toit 5 Places : Mythe ou Réalité ?</h1></div>
           <p className="tente-hero-subtitle">
             Vous êtes 5 ou plus et rêvez de camping en tente de toit ? Soyons honnêtes :
             les vraies tentes 5 places sont exceptionnelles. Voici les alternatives réalistes.
@@ -147,7 +147,7 @@ export default function TenteToit5PlacesPage() {
               <a
                 href={brand.affiliate.default_url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="tente-cta-button"
               >
                 Voir les tentes KAILOP

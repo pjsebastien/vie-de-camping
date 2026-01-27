@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { loadTentesData, formatPrice, getDiscountPercentage } from '@/lib/loadTentesData'
 
 export const metadata: Metadata = {
-  title: 'Meilleures Tentes de Toit 2025 : Comparatif et Guide d\'Achat Complet',
-  description: 'Comparatif des meilleures tentes de toit rigides en 2025. Guide complet pour choisir votre tente de toit : critères, modèles testés, prix et conseils d\'experts pour SUV, 4x4 et van.',
+  title: 'Meilleures tentes de toit : comparatif et sélection des modèles',
+  description: 'Comparatif des meilleures tentes de toit rigides. Choisissez votre tente de toit : critères, modèles testés, prix et conseils d\'experts pour SUV, 4x4 et van.',
   keywords: ['tente de toit', 'comparatif tente de toit', 'meilleure tente de toit', 'tente de toit rigide', 'tente de toit 4x4', 'tente de toit voiture'],
   openGraph: {
-    title: 'Meilleures Tentes de Toit 2025 : Comparatif Complet',
-    description: 'Guide complet pour choisir la meilleure tente de toit. Comparatif, avis et conseils d\'experts.',
+    title: 'Meilleures tentes de toit : comparatif et sélection',
+    description: 'Comparatif complet pour choisir la meilleure tente de toit. Avis et conseils d\'experts.',
     type: 'article',
   },
 }
@@ -30,16 +30,18 @@ export default function MeilleuresTentesToitPage() {
           <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <Link href="/materiel-camping/">Matériel Camping</Link>
+            <Link href="/materiel-camping/">Matériel camping</Link>
             <span>/</span>
-            <span>Tentes de Toit</span>
+            <span>Tentes de toit</span>
           </nav>
 
-          <h1>Meilleures Tentes de Toit 2025 : Comparatif et Guide d'Achat</h1>
-          <p className="tente-hero-subtitle">
-            Transformez votre véhicule en refuge mobile. Découvrez notre sélection des meilleures tentes de toit rigides,
-            testées et approuvées pour SUV, 4x4 et van.
-          </p>
+          <div className="tente-hero-content">
+            <h1>Meilleures tentes de toit : le comparatif complet</h1>
+            <p className="tente-hero-subtitle">
+              Transformez votre véhicule en refuge mobile. Comparez les meilleures tentes de toit rigides,
+              testées et approuvées pour SUV, 4x4 et van.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -50,7 +52,7 @@ export default function MeilleuresTentesToitPage() {
             <p>
               La <strong>tente de toit</strong> révolutionne le camping itinérant. Plus besoin de chercher un terrain plat,
               de monter une tente au sol ou de réserver un hébergement. En quelques secondes, votre véhicule se transforme
-              en chambre avec vue. Ce guide vous aide à <strong>choisir la meilleure tente de toit</strong> selon votre véhicule,
+              en chambre avec vue. Trouvez la <strong>meilleure tente de toit</strong> selon votre véhicule,
               votre budget et vos besoins.
             </p>
           </div>
@@ -189,7 +191,7 @@ export default function MeilleuresTentesToitPage() {
                 <a
                   href={kp19pro.affiliate.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="tente-cta-button"
                 >
                   {kp19pro.affiliate.cta_label}
@@ -239,7 +241,7 @@ export default function MeilleuresTentesToitPage() {
                 <a
                   href={st09pro.affiliate.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   className="tente-cta-button"
                 >
                   {st09pro.affiliate.cta_label}
@@ -547,7 +549,7 @@ export default function MeilleuresTentesToitPage() {
               <a
                 href={brand.affiliate.default_url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="tente-cta-button tente-cta-primary"
               >
                 Voir les tentes KAILOP
