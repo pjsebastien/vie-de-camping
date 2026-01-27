@@ -26,7 +26,7 @@ export default function TenteToit3PlacesPage() {
             <span>/</span>
             <span>3 Places</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit 3 Places : Le Format Familial Compact</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit 3 places : le format familial compact</h1></div>
           <p className="tente-hero-subtitle">
             Couple avec enfant, trio d'amis ou voyageur solo qui aime l'espace : la tente 3 places
             offre la flexibilité idéale sans compromis sur le poids.

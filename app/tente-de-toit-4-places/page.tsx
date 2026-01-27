@@ -26,7 +26,7 @@ export default function TenteToit4PlacesPage() {
             <span>/</span>
             <span>4 Places</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit 4 Places : Solutions pour Voyager en Famille</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit 4 places : solutions pour familles</h1></div>
           <p className="tente-hero-subtitle">
             Vous êtes 4 et voulez dormir ensemble ? Ce guide explore les options : grandes tentes,
             tentes multiples, ou solutions hybrides.

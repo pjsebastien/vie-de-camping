@@ -26,7 +26,7 @@ export default function TenteToitVanPage() {
             <span>/</span>
             <span>Pour Van</span>
           </nav>
-          <div class="tente-hero-content"><h1>Tente de Toit pour Van : Doublez Votre Espace de Couchage</h1></div>
+          <div className="tente-hero-content"><h1>Tente de toit pour van : doublez votre espace de couchage</h1></div>
           <p className="tente-hero-subtitle">
             Vous avez un van aménagé mais pas assez de couchages ? La tente de toit transforme
             votre fourgon en véritable camping-car familial.
