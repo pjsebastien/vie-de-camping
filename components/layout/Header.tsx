@@ -64,8 +64,13 @@ export function Header() {
               Départements
             </Link>
 
-            {/* Tentes de toit mega menu */}
-            <div className="nav-dropdown">
+            {/* Tentes de toit - Lien direct sur mobile */}
+            <Link href="/meilleures-tentes-de-toit/" className="nav-link nav-link-mobile-only" onClick={closeMenu}>
+              Tentes de toit
+            </Link>
+
+            {/* Tentes de toit mega menu - Desktop uniquement */}
+            <div className="nav-dropdown nav-dropdown-desktop-only">
               <button
                 className={`nav-dropdown-trigger ${isTentesMenuOpen ? 'active' : ''}`}
                 onClick={toggleTentesMenu}

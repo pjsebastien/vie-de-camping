@@ -1,25 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { loadCampings, loadCampingBySlug } from '@/lib/loadCampings'
 import { DEPARTEMENT_TO_REGION, DEPARTEMENT_NAMES } from '@/lib/regions'
 import { slugify } from '@/lib/utils'
-import { generateCampingPresentation, generateCampingKeyPoints, generateCampingAdvice, generateCampingFAQ, generateSuggestedActivities } from '@/lib/contentGenerator'
-import {
-  generateEquipementsList,
-  generateHebergementsList,
-  generateEnvironnementText,
-  generateInfosPratiques
-} from '@/lib/equipementsGenerator'
-import {
-  genererProfilTouristique,
-  genererDescriptionProfil,
-  genererPointsFortsDeduits,
-  determinerSejourRecommande,
-  genererComparatifLocal
-} from '@/lib/typologieTouristique'
-import { groupCampingsByCommune } from '@/lib/groupings'
+import { generateCampingPresentation, generateCampingKeyPoints, generateCampingAdvice, generateCampingFAQ } from '@/lib/contentGenerator'
+import { generateEquipementsList, generateHebergementsList } from '@/lib/equipementsGenerator'
+import { genererProfilTouristique, genererDescriptionProfil, determinerSejourRecommande } from '@/lib/typologieTouristique'
+import { groupCampingsByCommune, groupCampingsByDepartement } from '@/lib/groupings'
 
 type Props = {
   params: { slug: string }
@@ -27,1029 +15,405 @@ type Props = {
 
 export async function generateStaticParams() {
   const campings = loadCampings()
-
-  return campings.map((camping) => ({
-    slug: camping.slug,
-  }))
+  return campings.map((camping) => ({ slug: camping.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const camping = loadCampingBySlug(params.slug)
+  if (!camping) return { title: 'Camping non trouvé' }
 
-  if (!camping) {
-    return {
-      title: 'Camping non trouvé - Vie de Camping',
-    }
-  }
-
-  const title = `${camping.nom} - ${camping.commune} (${camping.departement}) - Vie de Camping`
-  const description = `Découvrez ${camping.nom}, camping ${camping.classement} situé à ${camping.commune} (${camping.codePostal}). ${camping.nombreEmplacements ? `${camping.nombreEmplacements} emplacements disponibles.` : ''}`
+  const departementName = DEPARTEMENT_NAMES[camping.departement] || camping.departement
+  const region = DEPARTEMENT_TO_REGION[camping.departement]
 
   return {
-    title,
-    description,
+    title: `${camping.nom} | Camping ${camping.classement || ''} ${camping.commune} (${camping.departement})`,
+    description: `${camping.nom} : camping ${camping.classement || ''} situé à ${camping.commune}. ${camping.nombreEmplacements ? camping.nombreEmplacements + ' emplacements.' : ''} Réservez votre séjour en ${region || departementName}.`,
+    keywords: [camping.nom, `camping ${camping.commune}`, `camping ${departementName}`, `${camping.nom} avis`],
   }
 }
 
 export default function CampingPage({ params }: Props) {
   const camping = loadCampingBySlug(params.slug)
-
-  if (!camping) {
-    notFound()
-  }
+  if (!camping) notFound()
 
   const departementName = DEPARTEMENT_NAMES[camping.departement] || camping.departement
   const region = DEPARTEMENT_TO_REGION[camping.departement]
 
-  // Contenu généré automatiquement
+  // Campings proches
   const campingsByCommune = groupCampingsByCommune()
-  const campingsInCommune = campingsByCommune[camping.commune]?.length || 1
-  const presentation = generateCampingPresentation(camping)
-  const keyPoints = generateCampingKeyPoints(camping, campingsInCommune)
+  const campingsByDepartement = groupCampingsByDepartement()
+  const campingsInCommune = campingsByCommune[camping.commune]?.filter(c => c.slug !== camping.slug) || []
+  const campingsInDepartement = campingsByDepartement[camping.departement]?.filter(c => c.slug !== camping.slug && c.commune !== camping.commune).slice(0, 6) || []
 
-  // Nouvelles données enrichies
+  // Contenu généré
+  const presentation = generateCampingPresentation(camping)
+  const keyPoints = generateCampingKeyPoints(camping, campingsInCommune.length + 1)
   const equipements = generateEquipementsList(camping)
   const hebergements = generateHebergementsList(camping)
-  const environnementText = generateEnvironnementText(camping)
-  const infosPratiques = generateInfosPratiques(camping)
-
-  // Typologie touristique déduite
   const profilTouristique = genererProfilTouristique(camping)
   const descriptionProfil = genererDescriptionProfil(profilTouristique, camping)
-  const pointsFortsDeduits = genererPointsFortsDeduits(profilTouristique, camping)
   const sejoursRecommandes = determinerSejourRecommande(profilTouristique, camping)
-  const comparatifLocal = genererComparatifLocal(camping, campingsByCommune[camping.commune] || [camping])
-
-  // Nouveau contenu enrichi
   const campingAdvice = generateCampingAdvice(camping)
   const campingFAQ = generateCampingFAQ(camping)
-  const suggestedActivities = generateSuggestedActivities(camping)
 
-  // Image basée sur le classement
   const getCampingImage = () => {
-    if (camping.classement?.includes('Aire naturelle')) return '/images/camping tente.jpg'
-    if (camping.classement?.includes('5 étoiles')) return '/images/camping piscine.jpg'
-    if (camping.classement?.includes('4 étoiles')) return '/images/camping piscine.jpg'
+    if (camping.classement?.includes('5 étoiles') || camping.classement?.includes('4 étoiles')) return '/images/camping piscine.jpg'
     if (camping.mobilHomes) return '/images/camping mobile home.jpg'
-    if (camping.emplacementsCaravanes) return '/images/camping caravane.jpg'
     return '/images/camping.jpg'
   }
 
-  const campingImage = getCampingImage()
-
-  // Déterminer si c'est un camping premium (4-5 étoiles)
   const isPremium = camping.classement?.includes('5 étoiles') || camping.classement?.includes('4 étoiles')
+  const stars = camping.classement?.match(/(\d+)\s*étoile/)?.[1]
+  const hasCoordinates = camping.latitude && camping.longitude
 
   return (
-    <>
-      {/* Hero Section */}
+    <main>
+      {/* Hero */}
       <section style={{
-        backgroundColor: '#003580',
-        backgroundImage: `linear-gradient(rgba(0, 53, 128, 0.7), rgba(0, 53, 128, 0.7)), url(${campingImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        color: 'var(--color-white)',
-        marginTop: '0'
+        background: `linear-gradient(rgba(0,53,128,0.88), rgba(0,53,128,0.92)), url(${getCampingImage()}) center/cover`,
+        padding: 'var(--space-6) 0',
+        color: 'white'
       }}>
         <div className="container">
           {/* Breadcrumb */}
-          <nav style={{
-            marginBottom: 'var(--space-5)',
-            display: 'flex',
-            gap: 'var(--space-3)',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            fontSize: 'var(--text-sm)'
-          }}>
-            <Link href="/" style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>
-              Accueil
-            </Link>
-            <span style={{ opacity: 0.5 }}>›</span>
-            {region && (
-              <>
-                <Link href={`/campings/region/${slugify(region)}/`} style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>
-                  {region}
-                </Link>
-                <span style={{ opacity: 0.5 }}>›</span>
-              </>
-            )}
-            <Link href={`/campings/departement/${camping.departement}/`} style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>
-              {departementName}
-            </Link>
-            <span style={{ opacity: 0.5 }}>›</span>
-            <Link href={`/campings/commune/${slugify(camping.commune)}/`} style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>
-              {camping.commune}
-            </Link>
+          <nav style={{ marginBottom: 'var(--space-4)', fontSize: 'var(--text-xs)', opacity: 0.85 }}>
+            <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>Accueil</Link>
+            <span style={{ margin: '0 6px' }}>/</span>
+            {region && (<><Link href={`/campings/region/${slugify(region)}/`} style={{ color: 'white', textDecoration: 'none' }}>{region}</Link><span style={{ margin: '0 6px' }}>/</span></>)}
+            <Link href={`/campings/departement/${camping.departement}/`} style={{ color: 'white', textDecoration: 'none' }}>{departementName}</Link>
+            <span style={{ margin: '0 6px' }}>/</span>
+            <Link href={`/campings/commune/${slugify(camping.commune)}/`} style={{ color: 'white', textDecoration: 'none' }}>{camping.commune}</Link>
           </nav>
 
-          <div style={{ maxWidth: '1000px' }}>
-            {/* Badge premium si applicable */}
-            {isPremium && (
-              <div style={{
-                display: 'inline-block',
-                backgroundColor: '#FEBB02',
-                color: '#003580',
-                padding: 'var(--space-2) var(--space-4)',
-                borderRadius: 'var(--radius-full)',
-                fontSize: 'var(--text-sm)',
-                fontWeight: 'var(--font-bold)',
-                marginBottom: 'var(--space-4)',
-                textTransform: 'uppercase'
-              }}>
-                ⭐ Premium
+          {/* Badges */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: 'var(--space-3)', flexWrap: 'wrap' }}>
+            {isPremium && <span style={{ background: '#FEBB02', color: '#003580', padding: '4px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 700, textTransform: 'uppercase' }}>Premium</span>}
+            {camping.classement && <span style={{ background: 'rgba(255,255,255,0.2)', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 500 }}>{camping.classement}</span>}
+          </div>
+
+          {/* Titre */}
+          <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: 'var(--space-2)', lineHeight: 1.15, color: 'white' }}>
+            {camping.nom}
+          </h1>
+
+          {/* Localisation */}
+          <p style={{ fontSize: 'var(--text-base)', opacity: 0.95, display: 'flex', alignItems: 'center', gap: '6px', marginBottom: 'var(--space-5)', color: 'white' }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {camping.commune}, {departementName} ({camping.departement})
+          </p>
+
+          {/* Info boxes */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 'var(--space-3)', maxWidth: '700px', marginBottom: 'var(--space-5)' }}>
+            {camping.nombreEmplacements && (
+              <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: 'var(--space-3)', borderRadius: '10px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: '#FEBB02' }}>{camping.nombreEmplacements}</div>
+                <div style={{ fontSize: 'var(--text-xs)', opacity: 0.9, color: 'white' }}>Emplacements</div>
               </div>
             )}
-
-            <h1 style={{
-              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-white)',
-              marginBottom: 'var(--space-4)',
-              lineHeight: '1.1'
-            }}>
-              {camping.nom}
-            </h1>
-
-            {/* Badges classement et catégorie */}
-            <div style={{
-              display: 'flex',
-              gap: 'var(--space-3)',
-              flexWrap: 'wrap',
-              marginBottom: 'var(--space-5)',
-              alignItems: 'center'
-            }}>
-              {camping.classement && (
-                <span style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'var(--color-white)',
-                  padding: 'var(--space-2) var(--space-4)',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: 'var(--font-semibold)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)'
-                }}>
-                  {camping.classement}
-                </span>
-              )}
-              {camping.categorie && (
-                <span style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'var(--color-white)',
-                  padding: 'var(--space-2) var(--space-4)',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: 'var(--font-semibold)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)'
-                }}>
-                  {camping.categorie}
-                </span>
-              )}
-            </div>
-
-            {/* Localisation */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--space-2)',
-              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-              marginBottom: 'var(--space-6)'
-            }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>{camping.commune}, {departementName} ({camping.departement})</span>
-            </div>
-
-            {/* Stats rapides */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-              gap: 'clamp(1rem, 3vw, 2rem)',
-              maxWidth: '800px'
-            }}>
-              {camping.nombreEmplacements && (
-                <div style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  padding: 'var(--space-4)',
-                  borderRadius: 'var(--radius-lg)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
-                }}>
-                  <div style={{
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontWeight: 'var(--font-bold)',
-                    color: '#FEBB02'
-                  }}>
-                    {camping.nombreEmplacements}
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    marginTop: 'var(--space-1)'
-                  }}>
-                    Emplacements
-                  </div>
-                </div>
-              )}
-
-              {camping.capacite && (
-                <div style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                  padding: 'var(--space-4)',
-                  borderRadius: 'var(--radius-lg)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
-                }}>
-                  <div style={{
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontWeight: 'var(--font-bold)',
-                    color: '#FEBB02'
-                  }}>
-                    {camping.capacite}
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    marginTop: 'var(--space-1)'
-                  }}>
-                    Personnes
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Présentation */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: 'var(--color-white)'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-5)'
-            }}>
-              Présentation du camping
-            </h2>
-            <div style={{
-              fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-              lineHeight: '1.8',
-              color: 'var(--color-gray-700)'
-            }}>
-              {presentation}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Profil touristique */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: '#F5F5F5'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-5)'
-            }}>
-              Profil du camping
-            </h2>
-            <div style={{
-              fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-              lineHeight: '1.8',
-              color: 'var(--color-gray-700)',
-              marginBottom: 'var(--space-5)'
-            }}>
-              {descriptionProfil}
-            </div>
-
-            {comparatifLocal && (
-              <div style={{
-                backgroundColor: 'var(--color-white)',
-                padding: 'var(--space-5)',
-                borderRadius: 'var(--radius-lg)',
-                borderLeft: '4px solid #003580',
-                fontStyle: 'italic',
-                color: 'var(--color-gray-600)'
-              }}>
-                {comparatifLocal}
+            {stars && (
+              <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: 'var(--space-3)', borderRadius: '10px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: '#FEBB02' }}>{'★'.repeat(parseInt(stars))}</div>
+                <div style={{ fontSize: 'var(--text-xs)', opacity: 0.9, color: 'white' }}>Classement</div>
+              </div>
+            )}
+            {camping.capacite && (
+              <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: 'var(--space-3)', borderRadius: '10px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, color: '#FEBB02' }}>{camping.capacite}</div>
+                <div style={{ fontSize: 'var(--text-xs)', opacity: 0.9, color: 'white' }}>Personnes max</div>
+              </div>
+            )}
+            {camping.piscine && (
+              <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: 'var(--space-3)', borderRadius: '10px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div style={{ fontSize: 'var(--text-2xl)' }}>🏊</div>
+                <div style={{ fontSize: 'var(--text-xs)', opacity: 0.9, color: 'white' }}>Piscine</div>
+              </div>
+            )}
+            {camping.animauxAcceptes && (
+              <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: 'var(--space-3)', borderRadius: '10px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <div style={{ fontSize: 'var(--text-2xl)' }}>🐾</div>
+                <div style={{ fontSize: 'var(--text-xs)', opacity: 0.9, color: 'white' }}>Animaux OK</div>
               </div>
             )}
           </div>
+
+          {/* Boutons contact */}
+          {(camping.telephone || camping.siteWeb) && (
+            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+              {camping.telephone && (
+                <a href={`tel:${camping.telephone}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FEBB02', color: '#003580', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 700, fontSize: 'var(--text-sm)' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  Appeler maintenant
+                </a>
+              )}
+              {camping.siteWeb && (
+                <a href={camping.siteWeb} target="_blank" rel="nofollow noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.2)', color: 'white', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--text-sm)', border: '1px solid rgba(255,255,255,0.3)' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  Voir le site officiel
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Types de séjours adaptés */}
-      {sejoursRecommandes.length > 0 && (
-        <section style={{
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-          backgroundColor: 'var(--color-white)'
-        }}>
-          <div className="container">
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                fontWeight: 'var(--font-bold)',
-                color: 'var(--color-gray-900)',
-                marginBottom: 'var(--space-6)',
-                textAlign: 'center'
-              }}>
-                Types de séjours adaptés
+      {/* Contenu principal */}
+      <div className="container" style={{ padding: 'var(--space-6) var(--space-4)' }}>
+        <div className="camping-layout">
+
+          {/* Colonne principale */}
+          <div>
+            {/* Présentation SEO */}
+            <section style={{ marginBottom: 'var(--space-6)' }}>
+              <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                Bienvenue au {camping.nom}
               </h2>
+              <p style={{ lineHeight: 1.7, color: 'var(--color-gray-700)', marginBottom: 'var(--space-3)', fontSize: 'var(--text-base)' }}>
+                {presentation}
+              </p>
+              <p style={{ lineHeight: 1.7, color: 'var(--color-gray-700)', fontSize: 'var(--text-base)' }}>
+                Le <strong>{camping.nom}</strong> est situé à <strong>{camping.commune}</strong> dans le <strong>{departementName}</strong>
+                {region && <> en <strong>{region}</strong></>}.
+                {camping.classement && <> Ce camping <strong>{camping.classement}</strong></>}
+                {camping.nombreEmplacements && <> dispose de <strong>{camping.nombreEmplacements} emplacements</strong></>} pour des vacances en plein air réussies.
+              </p>
+            </section>
 
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: 'var(--space-4)'
-              }}>
-                {sejoursRecommandes.map((sejour, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      backgroundColor: 'var(--color-white)',
-                      border: '1px solid var(--color-gray-200)',
-                      borderRadius: 'var(--radius-lg)',
-                      padding: 'var(--space-5)',
-                      textAlign: 'center',
-                      boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
-                    }}
-                  >
-                    <div style={{
-                      fontSize: 'var(--text-3xl)',
-                      marginBottom: 'var(--space-3)'
-                    }}>
-                      {index === 0 ? '👨‍👩‍👧‍👦' : index === 1 ? '🌳' : index === 2 ? '🏕️' : '✨'}
-                    </div>
-                    <div style={{
-                      fontSize: 'var(--text-base)',
-                      color: 'var(--color-gray-700)',
-                      lineHeight: '1.6'
-                    }}>
-                      {sejour}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Équipements et services */}
-      {equipements.length > 0 && (
-        <section style={{
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-          backgroundColor: '#F5F5F5'
-        }}>
-          <div className="container">
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-8)',
-              textAlign: 'center'
-            }}>
-              Équipements et services
-            </h2>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-              gap: 'var(--space-4)',
-              maxWidth: '1200px',
-              margin: '0 auto'
-            }}>
-              {equipements.map((equipement, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundColor: 'var(--color-white)',
-                    padding: 'var(--space-4)',
-                    borderRadius: 'var(--radius-lg)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--space-3)',
-                    border: '1px solid var(--color-gray-200)'
-                  }}
-                >
-                  <div style={{
-                    fontSize: 'var(--text-xl)',
-                    flexShrink: 0
-                  }}>
-                    {equipement.includes('Piscine') ? '🏊' :
-                     equipement.includes('Restauration') ? '🍽️' :
-                     equipement.includes('Wifi') ? '📶' :
-                     equipement.includes('Animaux') ? '🐾' :
-                     equipement.includes('Supérette') ? '🛒' :
-                     equipement.includes('Laverie') ? '🧺' :
-                     equipement.includes('Aire de jeux') ? '🎮' :
-                     '✓'}
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: 'var(--color-gray-700)',
-                    lineHeight: '1.4'
-                  }}>
-                    {equipement}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Types d'hébergement */}
-      {hebergements.length > 0 && (
-        <section style={{
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-          backgroundColor: 'var(--color-white)'
-        }}>
-          <div className="container">
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                fontWeight: 'var(--font-bold)',
-                color: 'var(--color-gray-900)',
-                marginBottom: 'var(--space-6)',
-                textAlign: 'center'
-              }}>
-                Types d'hébergement disponibles
-              </h2>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: 'var(--space-4)'
-              }}>
-                {hebergements.map((hebergement, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      backgroundColor: '#F5F5F5',
-                      padding: 'var(--space-4)',
-                      borderRadius: 'var(--radius-lg)',
-                      textAlign: 'center',
-                      border: '1px solid var(--color-gray-200)'
-                    }}
-                  >
-                    <div style={{
-                      fontSize: 'var(--text-2xl)',
-                      marginBottom: 'var(--space-2)'
-                    }}>
-                      {hebergement.includes('Mobil') ? '🏠' :
-                       hebergement.includes('Tente') ? '⛺' :
-                       hebergement.includes('Caravane') ? '🚐' :
-                       hebergement.includes('Camping-car') ? '🚙' :
-                       hebergement.includes('Chalet') ? '🏡' :
-                       '🏕️'}
-                    </div>
-                    <div style={{
-                      fontSize: 'var(--text-sm)',
-                      color: 'var(--color-gray-700)'
-                    }}>
-                      {hebergement}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Informations générales */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: '#F5F5F5'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-6)'
-            }}>
-              Informations générales
-            </h2>
-
-            <div style={{
-              backgroundColor: 'var(--color-white)',
-              padding: 'var(--space-6)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--color-gray-200)'
-            }}>
-              <dl style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: 'var(--space-5)',
-                fontSize: 'var(--text-base)'
-              }}>
-                <div>
-                  <dt style={{
-                    fontWeight: 'var(--font-semibold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-2)'
-                  }}>
-                    📍 Localisation
-                  </dt>
-                  <dd style={{ color: 'var(--color-gray-700)' }}>
-                    <Link href={`/campings/commune/${slugify(camping.commune)}/`} style={{ color: '#003580', textDecoration: 'none' }}>
-                      {camping.commune}
-                    </Link>
-                    <br />
-                    {camping.codePostal}
-                    <br />
-                    <Link href={`/campings/departement/${camping.departement}/`} style={{ color: '#003580', textDecoration: 'none' }}>
-                      {departementName} ({camping.departement})
-                    </Link>
-                  </dd>
-                </div>
-
-                <div>
-                  <dt style={{
-                    fontWeight: 'var(--font-semibold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-2)'
-                  }}>
-                    🏕️ Capacité
-                  </dt>
-                  <dd style={{ color: 'var(--color-gray-700)' }}>
-                    {camping.classement}
-                    {camping.nombreEmplacements && (
-                      <>
-                        <br />
-                        {camping.nombreEmplacements} emplacements
-                      </>
-                    )}
-                    {camping.capacite && (
-                      <>
-                        <br />
-                        {camping.capacite} personnes
-                      </>
-                    )}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt style={{
-                    fontWeight: 'var(--font-semibold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-2)'
-                  }}>
-                    📋 Adresse
-                  </dt>
-                  <dd style={{ color: 'var(--color-gray-700)' }}>
-                    {camping.adresse}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt style={{
-                    fontWeight: 'var(--font-semibold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-2)'
-                  }}>
-                    ✅ Date de classement
-                  </dt>
-                  <dd style={{ color: 'var(--color-gray-700)' }}>
-                    {camping.dateClassement}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      {(camping.telephone || camping.email || camping.siteWeb) && (
-        <section style={{
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-          backgroundColor: 'var(--color-white)'
-        }}>
-          <div className="container">
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                fontWeight: 'var(--font-bold)',
-                color: 'var(--color-gray-900)',
-                marginBottom: 'var(--space-6)',
-                textAlign: 'center'
-              }}>
-                Contact
-              </h2>
-
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-4)',
-                alignItems: 'center'
-              }}>
-                {camping.telephone && (
-                  <a
-                    href={`tel:${camping.telephone}`}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 'var(--space-3)',
-                      padding: 'var(--space-4) var(--space-6)',
-                      backgroundColor: '#003580',
-                      color: 'var(--color-white)',
-                      textDecoration: 'none',
-                      borderRadius: 'var(--radius-lg)',
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: 'var(--font-semibold)',
-                      transition: 'all var(--transition-base)',
-                      boxShadow: '0 2px 8px rgba(0,53,128,0.2)'
-                    }}
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                    {camping.telephone}
-                  </a>
-                )}
-
-                {camping.siteWeb && (
-                  <a
-                    href={camping.siteWeb}
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 'var(--space-3)',
-                      padding: 'var(--space-4) var(--space-6)',
-                      backgroundColor: '#FEBB02',
-                      color: '#003580',
-                      textDecoration: 'none',
-                      borderRadius: 'var(--radius-lg)',
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: 'var(--font-semibold)',
-                      transition: 'all var(--transition-base)',
-                      boxShadow: '0 2px 8px rgba(254,187,2,0.2)'
-                    }}
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10"/>
-                      <line x1="2" y1="12" x2="22" y2="12"/>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                    Visiter le site officiel
-                  </a>
-                )}
-
-                {camping.email && (
-                  <a
-                    href={`mailto:${camping.email}`}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 'var(--space-2)',
-                      color: '#003580',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-base)',
-                      transition: 'color var(--transition-base)'
-                    }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                      <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                    {camping.email}
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Points forts et caractéristiques */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: '#F5F5F5'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-6)'
-            }}>
-              Points forts
-            </h2>
-
-            <div style={{
-              display: 'grid',
-              gap: 'var(--space-3)'
-            }}>
-              {keyPoints.map((point, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundColor: 'var(--color-white)',
-                    padding: 'var(--space-4)',
-                    borderRadius: 'var(--radius-lg)',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 'var(--space-3)',
-                    border: '1px solid var(--color-gray-200)'
-                  }}
-                >
-                  <div style={{
-                    color: '#003580',
-                    fontSize: 'var(--text-xl)',
-                    flexShrink: 0,
-                    marginTop: '2px'
-                  }}>
-                    ✓
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-base)',
-                    color: 'var(--color-gray-700)',
-                    lineHeight: '1.6'
-                  }}>
-                    {point}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {pointsFortsDeduits.length > 0 && (
-              <>
-                <h3 style={{
-                  fontSize: 'var(--text-xl)',
-                  fontWeight: 'var(--font-bold)',
-                  color: 'var(--color-gray-900)',
-                  marginTop: 'var(--space-8)',
-                  marginBottom: 'var(--space-4)'
-                }}>
-                  Caractéristiques du séjour
-                </h3>
-
-                <div style={{
-                  display: 'grid',
-                  gap: 'var(--space-3)'
-                }}>
-                  {pointsFortsDeduits.map((point, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        backgroundColor: 'var(--color-white)',
-                        padding: 'var(--space-4)',
-                        borderRadius: 'var(--radius-lg)',
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: 'var(--space-3)',
-                        border: '1px solid var(--color-gray-200)'
-                      }}
-                    >
-                      <div style={{
-                        color: '#FEBB02',
-                        fontSize: 'var(--text-xl)',
-                        flexShrink: 0,
-                        marginTop: '2px'
-                      }}>
-                        •
-                      </div>
-                      <div style={{
-                        fontSize: 'var(--text-base)',
-                        color: 'var(--color-gray-700)',
-                        lineHeight: '1.6'
-                      }}>
-                        {point}
-                      </div>
+            {/* Points forts */}
+            {keyPoints.length > 0 && (
+              <section style={{ marginBottom: 'var(--space-6)' }}>
+                <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                  Pourquoi choisir le {camping.nom} ?
+                </h2>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {keyPoints.slice(0, 5).map((point, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '12px 14px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+                      <span style={{ color: '#16a34a', fontWeight: 700, fontSize: 'var(--text-base)' }}>✓</span>
+                      <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-700)', lineHeight: 1.5 }}>{point}</span>
                     </div>
                   ))}
                 </div>
-              </>
+              </section>
             )}
-          </div>
-        </div>
-      </section>
 
-      {/* Conseils pratiques */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: 'var(--color-white)'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-8)',
-              textAlign: 'center'
-            }}>
-              {campingAdvice.title}
-            </h2>
-
-            <div style={{
-              display: 'grid',
-              gap: 'var(--space-6)'
-            }}>
-              {campingAdvice.sections.map((section, index) => (
-                <div key={index} style={{
-                  backgroundColor: '#F8F9FA',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--space-6)',
-                  borderLeft: '4px solid #003580'
-                }}>
-                  <h3 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: 'var(--font-bold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-3)'
-                  }}>
-                    {section.title}
-                  </h3>
-                  <p style={{
-                    fontSize: 'var(--text-base)',
-                    lineHeight: '1.7',
-                    color: 'var(--color-gray-700)',
-                    margin: 0
-                  }}>
-                    {section.content}
-                  </p>
+            {/* Équipements */}
+            {equipements.length > 0 && (
+              <section style={{ marginBottom: 'var(--space-6)' }}>
+                <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                  Équipements au {camping.nom}
+                </h2>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {equipements.map((eq, i) => (
+                    <span key={i} style={{ padding: '6px 14px', background: '#e0f2fe', color: '#0369a1', borderRadius: '20px', fontSize: 'var(--text-sm)', fontWeight: 500 }}>
+                      {eq.includes('Piscine') ? '🏊 ' : eq.includes('Restaurant') ? '🍽️ ' : eq.includes('Wifi') ? '📶 ' : eq.includes('Animaux') ? '🐾 ' : eq.includes('Laverie') ? '🧺 ' : eq.includes('Jeux') ? '🎮 ' : '• '}
+                      {eq}
+                    </span>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+              </section>
+            )}
 
-      {/* Activités suggérées */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: '#F5F5F5'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-8)',
-              textAlign: 'center'
-            }}>
-              {suggestedActivities.title}
-            </h2>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'var(--space-5)'
-            }}>
-              {suggestedActivities.activities.map((activity, index) => (
-                <div key={index} style={{
-                  backgroundColor: 'var(--color-white)',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--space-5)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                  transition: 'all var(--transition-base)'
-                }}>
-                  <div style={{
-                    fontSize: '2.5rem',
-                    marginBottom: 'var(--space-3)',
-                    textAlign: 'center'
-                  }}>
-                    {activity.icon}
-                  </div>
-                  <h3 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: 'var(--font-bold)',
-                    color: 'var(--color-gray-900)',
-                    marginBottom: 'var(--space-2)',
-                    textAlign: 'center'
-                  }}>
-                    {activity.title}
-                  </h3>
-                  <p style={{
-                    fontSize: 'var(--text-sm)',
-                    lineHeight: '1.6',
-                    color: 'var(--color-gray-600)',
-                    margin: 0,
-                    textAlign: 'center'
-                  }}>
-                    {activity.description}
-                  </p>
+            {/* Hébergements */}
+            {hebergements.length > 0 && (
+              <section style={{ marginBottom: 'var(--space-6)' }}>
+                <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                  Hébergements disponibles
+                </h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '10px' }}>
+                  {hebergements.map((h, i) => (
+                    <div key={i} style={{ padding: '14px', background: '#f8fafc', borderRadius: '10px', textAlign: 'center', border: '1px solid #e2e8f0' }}>
+                      <div style={{ fontSize: '1.5rem', marginBottom: '4px' }}>
+                        {h.includes('Mobil') ? '🏠' : h.includes('Tente') ? '⛺' : h.includes('Caravane') ? '🚐' : h.includes('Chalet') ? '🏡' : h.includes('Camping-car') ? '🚙' : '🏕️'}
+                      </div>
+                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-700)' }}>{h}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+              </section>
+            )}
 
-      {/* FAQ */}
-      {campingFAQ.length > 0 && (
-        <section style={{
-          padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-          backgroundColor: 'var(--color-white)'
-        }}>
-          <div className="container">
-            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-              <h2 style={{
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                fontWeight: 'var(--font-bold)',
-                color: 'var(--color-gray-900)',
-                marginBottom: 'var(--space-8)',
-                textAlign: 'center'
-              }}>
-                ❓ Questions fréquentes
+            {/* Profil & Séjours */}
+            <section style={{ marginBottom: 'var(--space-6)' }}>
+              <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                Profil du {camping.nom}
               </h2>
+              <p style={{ fontSize: 'var(--text-base)', lineHeight: 1.7, color: 'var(--color-gray-700)', marginBottom: 'var(--space-3)' }}>
+                {descriptionProfil}
+              </p>
+              {sejoursRecommandes.length > 0 && (
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {sejoursRecommandes.slice(0, 3).map((s, i) => (
+                    <div key={i} style={{ padding: '12px 16px', background: '#fffbeb', borderLeft: '4px solid #FEBB02', borderRadius: '0 8px 8px 0', fontSize: 'var(--text-sm)', color: 'var(--color-gray-700)' }}>
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
 
-              <div style={{
-                display: 'grid',
-                gap: 'var(--space-5)'
-              }}>
-                {campingFAQ.map((item, index) => (
-                  <div key={index} style={{
-                    backgroundColor: '#F8F9FA',
-                    borderRadius: 'var(--radius-lg)',
-                    padding: 'var(--space-6)',
-                    border: '1px solid var(--color-gray-200)'
-                  }}>
-                    <h3 style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: 'var(--font-bold)',
-                      color: '#003580',
-                      marginBottom: 'var(--space-3)'
-                    }}>
-                      {item.question}
-                    </h3>
-                    <p style={{
-                      fontSize: 'var(--text-base)',
-                      lineHeight: '1.7',
-                      color: 'var(--color-gray-700)',
-                      margin: 0
-                    }}>
-                      {item.answer}
-                    </p>
+            {/* Conseils */}
+            <section style={{ marginBottom: 'var(--space-6)' }}>
+              <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                {campingAdvice.title}
+              </h2>
+              <div style={{ display: 'grid', gap: '12px' }}>
+                {campingAdvice.sections.slice(0, 3).map((s, i) => (
+                  <div key={i} style={{ padding: '16px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                    <h3 style={{ fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: '6px', color: '#003580' }}>{s.title}</h3>
+                    <p style={{ fontSize: 'var(--text-sm)', lineHeight: 1.6, color: 'var(--color-gray-600)', margin: 0 }}>{s.content}</p>
                   </div>
                 ))}
               </div>
+            </section>
+
+            {/* FAQ */}
+            {campingFAQ.length > 0 && (
+              <section>
+                <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                  Questions fréquentes sur {camping.nom}
+                </h2>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {campingFAQ.slice(0, 4).map((faq, i) => (
+                    <details key={i} style={{ padding: '14px 16px', background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                      <summary style={{ fontWeight: 600, fontSize: 'var(--text-sm)', color: '#003580', cursor: 'pointer' }}>{faq.question}</summary>
+                      <p style={{ marginTop: '10px', fontSize: 'var(--text-sm)', lineHeight: 1.6, color: 'var(--color-gray-600)' }}>{faq.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Sidebar */}
+          <aside className="camping-sidebar">
+            {/* Carte */}
+            {hasCoordinates && (
+              <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', marginBottom: 'var(--space-4)', border: '1px solid #e5e7eb' }}>
+                <div style={{ padding: '12px 14px', borderBottom: '1px solid #e5e7eb' }}>
+                  <h3 style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--color-gray-900)', margin: 0 }}>📍 Localisation</h3>
+                </div>
+                <iframe
+                  src={`https://www.openstreetmap.org/export/embed.html?bbox=${camping.longitude! - 0.01}%2C${camping.latitude! - 0.01}%2C${camping.longitude! + 0.01}%2C${camping.latitude! + 0.01}&layer=mapnik&marker=${camping.latitude}%2C${camping.longitude}`}
+                  style={{ width: '100%', height: '200px', border: 0 }}
+                  loading="lazy"
+                  title={`Carte ${camping.nom}`}
+                />
+                <div style={{ padding: '10px 14px', background: '#f8fafc' }}>
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${camping.latitude},${camping.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', background: '#003580', color: 'white', borderRadius: '6px', textDecoration: 'none', fontSize: 'var(--text-xs)', fontWeight: 600 }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Itinéraire Google Maps
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Infos pratiques */}
+            <div style={{ background: '#f8fafc', borderRadius: '12px', padding: 'var(--space-4)', marginBottom: 'var(--space-4)', border: '1px solid #e5e7eb' }}>
+              <h3 style={{ fontSize: 'var(--text-sm)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>Informations pratiques</h3>
+              <dl style={{ fontSize: 'var(--text-sm)', display: 'grid', gap: '12px' }}>
+                <div>
+                  <dt style={{ fontWeight: 600, color: 'var(--color-gray-800)', marginBottom: '2px' }}>📍 Adresse</dt>
+                  <dd style={{ color: 'var(--color-gray-600)', margin: 0 }}>{camping.adresse}<br/>{camping.codePostal} {camping.commune}</dd>
+                </div>
+                <div>
+                  <dt style={{ fontWeight: 600, color: 'var(--color-gray-800)', marginBottom: '2px' }}>🏕️ Classement</dt>
+                  <dd style={{ color: 'var(--color-gray-600)', margin: 0 }}>{camping.classement || 'Non classé'}</dd>
+                </div>
+                {camping.dateClassement && (
+                  <div>
+                    <dt style={{ fontWeight: 600, color: 'var(--color-gray-800)', marginBottom: '2px' }}>📅 Depuis</dt>
+                    <dd style={{ color: 'var(--color-gray-600)', margin: 0 }}>{camping.dateClassement}</dd>
+                  </div>
+                )}
+                {camping.email && (
+                  <div>
+                    <dt style={{ fontWeight: 600, color: 'var(--color-gray-800)', marginBottom: '2px' }}>✉️ Email</dt>
+                    <dd style={{ margin: 0 }}><a href={`mailto:${camping.email}`} style={{ color: '#003580', fontSize: 'var(--text-xs)', wordBreak: 'break-all' }}>{camping.email}</a></dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+
+            {/* Maillage interne */}
+            <div style={{ background: '#003580', borderRadius: '12px', padding: 'var(--space-4)', marginBottom: 'var(--space-4)', color: 'white' }}>
+              <h3 style={{ fontSize: 'var(--text-sm)', fontWeight: 700, marginBottom: 'var(--space-3)' }}>Explorer la région</h3>
+              <div style={{ display: 'grid', gap: '8px' }}>
+                <Link href={`/campings/commune/${slugify(camping.commune)}/`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', textDecoration: 'none', fontSize: 'var(--text-sm)' }}>
+                  🏘️ Campings à {camping.commune}
+                </Link>
+                <Link href={`/campings/departement/${camping.departement}/`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', textDecoration: 'none', fontSize: 'var(--text-sm)' }}>
+                  🗺️ Campings en {departementName}
+                </Link>
+                {region && (
+                  <Link href={`/campings/region/${slugify(region)}/`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', color: 'white', textDecoration: 'none', fontSize: 'var(--text-sm)' }}>
+                    🌍 Campings en {region}
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* Campings même commune */}
+            {campingsInCommune.length > 0 && (
+              <div style={{ background: '#f8fafc', borderRadius: '12px', padding: 'var(--space-4)', border: '1px solid #e5e7eb' }}>
+                <h3 style={{ fontSize: 'var(--text-sm)', fontWeight: 700, marginBottom: 'var(--space-3)', color: 'var(--color-gray-900)' }}>
+                  Autres campings à {camping.commune}
+                </h3>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {campingsInCommune.slice(0, 4).map((c) => (
+                    <Link key={c.slug} href={`/campings/${c.slug}/`} style={{ display: 'block', padding: '10px 12px', background: 'white', borderRadius: '8px', textDecoration: 'none', border: '1px solid #e5e7eb' }}>
+                      <div style={{ fontWeight: 600, fontSize: 'var(--text-sm)', color: '#003580', marginBottom: '2px' }}>{c.nom}</div>
+                      <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-gray-500)' }}>{c.classement}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </aside>
+        </div>
+      </div>
+
+      {/* Campings département */}
+      {campingsInDepartement.length > 0 && (
+        <section style={{ background: '#f8fafc', padding: 'var(--space-6) 0' }}>
+          <div className="container">
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 700, marginBottom: 'var(--space-4)', color: 'var(--color-gray-900)' }}>
+              Autres campings en {departementName}
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--space-3)' }}>
+              {campingsInDepartement.map((c) => (
+                <Link key={c.slug} href={`/campings/${c.slug}/`} style={{ display: 'block', padding: '16px', background: 'white', borderRadius: '10px', textDecoration: 'none', border: '1px solid #e5e7eb', transition: 'box-shadow 0.2s' }}>
+                  <div style={{ fontWeight: 600, fontSize: 'var(--text-base)', color: '#003580', marginBottom: '4px' }}>{c.nom}</div>
+                  <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', marginBottom: '2px' }}>{c.commune}</div>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-gray-500)' }}>{c.classement}</div>
+                </Link>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: 'var(--space-4)' }}>
+              <Link href={`/campings/departement/${camping.departement}/`} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px', background: '#003580', color: 'white', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, fontSize: 'var(--text-sm)' }}>
+                Voir tous les campings en {departementName} →
+              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* À propos de la commune */}
-      <section style={{
-        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: 'var(--color-white)'
-      }}>
-        <div className="container">
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              fontWeight: 'var(--font-bold)',
-              color: 'var(--color-gray-900)',
-              marginBottom: 'var(--space-5)'
-            }}>
-              À propos de {camping.commune}
-            </h2>
-            <div style={{
-              fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-              lineHeight: '1.8',
-              color: 'var(--color-gray-700)'
-            }}>
-              Le camping {camping.nom} est situé à{' '}
-              <Link href={`/campings/commune/${slugify(camping.commune)}/`} style={{ color: '#003580', textDecoration: 'underline', fontWeight: 'var(--font-semibold)' }}>
-                {camping.commune}
-              </Link>, dans le département{' '}
-              <Link href={`/campings/departement/${camping.departement}/`} style={{ color: '#003580', textDecoration: 'underline', fontWeight: 'var(--font-semibold)' }}>
-                {departementName}
-              </Link>
-              {region && (
-                <>
-                  {' '}en région{' '}
-                  <Link href={`/campings/region/${slugify(region)}/`} style={{ color: '#003580', textDecoration: 'underline', fontWeight: 'var(--font-semibold)' }}>
-                    {region}
-                  </Link>
-                </>
-              )}.
-              Cette destination offre un cadre idéal pour vos vacances en camping en France.
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      {/* Schema.org */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Campground",
+        "name": camping.nom,
+        "address": { "@type": "PostalAddress", "streetAddress": camping.adresse, "addressLocality": camping.commune, "postalCode": camping.codePostal, "addressRegion": departementName, "addressCountry": "FR" },
+        ...(camping.telephone && { "telephone": camping.telephone }),
+        ...(camping.siteWeb && { "url": camping.siteWeb }),
+        ...(camping.email && { "email": camping.email }),
+        ...(hasCoordinates && { "geo": { "@type": "GeoCoordinates", "latitude": camping.latitude, "longitude": camping.longitude } }),
+        ...(camping.nombreEmplacements && { "numberOfRooms": camping.nombreEmplacements }),
+        "description": `${camping.nom}, camping ${camping.classement || ''} à ${camping.commune}.`
+      })}} />
+    </main>
   )
 }

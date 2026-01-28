@@ -2,14 +2,15 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { loadTentesData, formatPrice, getDiscountPercentage } from '@/lib/loadTentesData'
+import { TenteSubNav } from '@/components/tentes/TenteSubNav'
 
 export const metadata: Metadata = {
-  title: 'Tente de toit rigide : avantages et inconvénients',
-  description: 'Tout savoir sur les tentes de toit rigides (hardshell). Avantages vs tentes souples, critères de choix, meilleurs modèles et conseils d\'installation.',
+  title: 'Tente de toit rigide : avantages, prix et meilleurs modèles',
+  description: 'Tout savoir sur les tentes de toit rigides (hardshell). Comparatif rigide vs souple, avantages, inconvénients et meilleurs modèles à choisir.',
   keywords: ['tente de toit rigide', 'hardshell', 'tente de toit coque dure', 'comparatif tente rigide', 'avantages tente rigide'],
   openGraph: {
-    title: 'Tente de toit rigide : avantages et inconvénients',
-    description: 'Découvrez pourquoi les tentes de toit rigides dominent le marché. Comparatif des meilleurs modèles et conseils pour bien choisir.',
+    title: 'Tente de toit rigide : avantages, prix et meilleurs modèles',
+    description: 'Découvrez pourquoi les tentes de toit rigides dominent le marché. Comparatif et conseils pour bien choisir.',
     type: 'article',
   },
 }
@@ -24,8 +25,24 @@ export default function TenteToitRigidePage() {
 
   return (
     <main className="tente-page">
+      {/* Promo Banner */}
+      <div className="promo-banner">
+        <div className="promo-banner-content">
+          <span className="promo-text">
+            <strong>-120€</strong> sur votre tente de toit rigide
+          </span>
+          <span className="promo-code">KAILOP120</span>
+          <span className="promo-text">
+            Code exclusif activé au clic
+          </span>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <TenteSubNav />
+
       {/* Hero Section */}
-      <section className="tente-hero">
+      <section className="tente-hero-pro">
         <div className="container">
           <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link href="/">Accueil</Link>
@@ -35,35 +52,87 @@ export default function TenteToitRigidePage() {
             <span>Tentes Rigides</span>
           </nav>
 
-          <div className="tente-hero-content"><h1>Tente de toit rigide : le meilleur pour le camping</h1></div>
-          <p className="tente-hero-subtitle">
-            Pourquoi les tentes de toit rigides (hardshell) sont devenues la référence pour le camping itinérant.
-            Avantages, inconvénients et comparatif des meilleurs modèles.
-          </p>
+          <div className="tente-hero-grid">
+            <div className="tente-hero-text">
+              <h1>
+                Tente de toit rigide : <span>le choix des voyageurs exigeants</span>
+              </h1>
+              <p className="tente-hero-lead">
+                Une tente de toit rigide (hardshell) s'ouvre en 5 secondes, résiste à toutes les conditions
+                météo et dure 10 à 15 ans. Découvrez pourquoi elle domine le marché et comment bien la choisir.
+              </p>
+
+              <div className="hero-trust-badges">
+                <div className="hero-badge">
+                  <span className="hero-badge-icon">⚡</span>
+                  <span>Ouverture 5 sec</span>
+                </div>
+                <div className="hero-badge">
+                  <span className="hero-badge-icon">🛡️</span>
+                  <span>Coque aluminium</span>
+                </div>
+                <div className="hero-badge">
+                  <span className="hero-badge-icon">🌧️</span>
+                  <span>4 saisons</span>
+                </div>
+              </div>
+
+              <div className="hero-cta-group">
+                <a
+                  href={brand.affiliate.default_url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="cta-primary-pro"
+                >
+                  Voir les tentes rigides KAILOP
+                  <span>→</span>
+                </a>
+                <Link href="#comparatif" className="cta-secondary-pro">
+                  Rigide vs Souple
+                </Link>
+              </div>
+            </div>
+
+            <div className="tente-hero-image">
+              <Image
+                src={kp19pro.media.images.general[1]}
+                alt="Tente de toit rigide KAILOP ouverte"
+                width={600}
+                height={450}
+                priority
+                style={{ objectFit: 'cover' }}
+              />
+              <span className="hero-image-badge">-120€ avec KAILOP120</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Introduction */}
       <section className="tente-section">
         <div className="container">
-          <div className="tente-intro">
+          <div className="tente-intro" style={{ maxWidth: '900px' }}>
             <p>
-              La <strong>tente de toit rigide</strong>, aussi appelée "hardshell", est équipée d'une coque dure
+              La <strong>tente de toit rigide</strong>, aussi appelée "hardshell", possède une coque dure
               (généralement en aluminium ou fibre de verre) qui s'ouvre automatiquement via des vérins hydrauliques.
-              Contrairement aux tentes souples qui nécessitent un dépliage manuel, les modèles rigides s'installent
-              en <strong>quelques secondes</strong>, offrant un gain de temps considérable et une protection supérieure.
+              Contrairement aux tentes souples qui nécessitent un dépliage manuel de plusieurs minutes,
+              les modèles rigides s'installent en <strong>quelques secondes</strong>, offrant un gain de temps
+              considérable et une protection supérieure contre les éléments.
             </p>
           </div>
         </div>
       </section>
 
       {/* Rigide vs Souple */}
-      <section className="tente-section tente-section-alt">
+      <section id="comparatif" className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Tente de toit rigide vs souple : comparatif</h2>
+          <div className="section-header-pro">
+            <h2>Tente de toit rigide vs souple</h2>
+            <p>Comparez objectivement les deux types pour faire le bon choix selon vos besoins.</p>
+          </div>
 
-          <div className="tente-table-wrapper">
-            <table className="tente-comparison-table">
+          <div className="comparison-table-pro">
+            <table>
               <thead>
                 <tr>
                   <th>Critère</th>
@@ -74,74 +143,77 @@ export default function TenteToitRigidePage() {
               <tbody>
                 <tr>
                   <td><strong>Temps d'ouverture</strong></td>
-                  <td className="highlight-good">5 secondes</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>5 secondes</td>
                   <td>5-15 minutes</td>
                 </tr>
                 <tr>
                   <td><strong>Temps de fermeture</strong></td>
-                  <td className="highlight-good">30 secondes</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>30 secondes</td>
                   <td>5-10 minutes</td>
                 </tr>
                 <tr>
                   <td><strong>Aérodynamisme fermée</strong></td>
-                  <td className="highlight-good">Excellent (profil bas)</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>Excellent (profil bas)</td>
                   <td>Moyen (volume visible)</td>
                 </tr>
                 <tr>
                   <td><strong>Résistance intempéries</strong></td>
-                  <td className="highlight-good">Excellente (coque dure)</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>Excellente (coque dure)</td>
                   <td>Bonne</td>
                 </tr>
                 <tr>
                   <td><strong>Isolation thermique</strong></td>
-                  <td className="highlight-good">Supérieure</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>Supérieure</td>
                   <td>Standard</td>
                 </tr>
                 <tr>
                   <td><strong>Durabilité</strong></td>
-                  <td className="highlight-good">10-15 ans</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>10-15 ans</td>
                   <td>5-10 ans</td>
                 </tr>
                 <tr>
                   <td><strong>Prix moyen</strong></td>
                   <td>2000-4000€</td>
-                  <td className="highlight-good">800-2000€</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>800-2000€</td>
                 </tr>
                 <tr>
                   <td><strong>Poids</strong></td>
                   <td>60-90 kg</td>
-                  <td className="highlight-good">30-50 kg</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>30-50 kg</td>
                 </tr>
                 <tr>
                   <td><strong>Espace intérieur</strong></td>
                   <td>Standard</td>
-                  <td className="highlight-good">Souvent plus grand</td>
+                  <td style={{ color: '#10b981', fontWeight: 600 }}>Souvent plus grand</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div className="tente-verdict-box">
-            <h3>Notre Verdict</h3>
+          <div className="tente-verdict-box" style={{ marginTop: 'var(--space-6)' }}>
+            <h3>Notre verdict</h3>
             <p>
               Si vous prévoyez un <strong>usage régulier</strong> (plus de 10 nuits par an), la tente rigide est
               le meilleur investissement. Le gain de temps quotidien et la durabilité supérieure compensent
-              largement la différence de prix. Pour un usage occasionnel, une tente souple peut suffire.
+              largement la différence de prix. Pour un usage occasionnel avec budget serré, une tente souple peut convenir.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Avantages détaillés */}
+      {/* 7 Avantages */}
       <section className="tente-section">
         <div className="container">
-          <h2>Les 7 Avantages d'une Tente de Toit Rigide</h2>
+          <div className="section-header-pro">
+            <h2>Les 7 avantages d'une tente de toit rigide</h2>
+            <p>Pourquoi les voyageurs expérimentés choisissent majoritairement les modèles hardshell.</p>
+          </div>
 
           <div className="tente-advantages-list">
             <div className="tente-advantage-item">
               <div className="advantage-number">1</div>
               <div className="advantage-content">
-                <h3>Déploiement Instantané</h3>
+                <h3>Déploiement instantané</h3>
                 <p>
                   Grâce aux vérins hydrauliques (d'origine allemande sur les modèles KAILOP), l'ouverture se fait
                   en <strong>{kp19pro.opening_system_details.opening_time_seconds} secondes</strong> par une seule personne.
@@ -154,7 +226,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">2</div>
               <div className="advantage-content">
-                <h3>Protection Maximale</h3>
+                <h3>Protection maximale</h3>
                 <p>
                   La coque en <strong>{kp19pro.materials.shell}</strong> protège de la grêle, des branches,
                   et offre une isolation thermique supérieure. L'étanchéité <strong>{kp19pro.weather_resistance.waterproof_rating}</strong>
@@ -166,7 +238,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">3</div>
               <div className="advantage-content">
-                <h3>Aérodynamisme Optimisé</h3>
+                <h3>Aérodynamisme optimisé</h3>
                 <p>
                   Fermée, une tente rigide ne fait que <strong>{kp19pro.dimensions.closed_cm.height} cm de haut</strong>
                   (KP19PRO). Ce profil bas réduit la prise au vent et la consommation de carburant
@@ -178,7 +250,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">4</div>
               <div className="advantage-content">
-                <h3>Utilisation 4 Saisons</h3>
+                <h3>Utilisation 4 saisons</h3>
                 <p>
                   Conçues pour affronter toutes les conditions, les tentes rigides sont
                   <strong> résistantes au vent, à la pluie, à la neige et aux UV ({kp19pro.weather_resistance.uv_protection})</strong>.
@@ -190,7 +262,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">5</div>
               <div className="advantage-content">
-                <h3>Durabilité Exceptionnelle</h3>
+                <h3>Durabilité exceptionnelle</h3>
                 <p>
                   Avec une garantie de <strong>5 ans</strong> et une durée de vie de 10-15 ans,
                   une tente rigide est un investissement rentable. Les composants (vérins, charnières, tissu)
@@ -202,7 +274,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">6</div>
               <div className="advantage-content">
-                <h3>Confort Supérieur</h3>
+                <h3>Confort supérieur</h3>
                 <p>
                   Les tentes rigides intègrent un matelas permanent (mousse à mémoire de forme de
                   <strong> {kp19pro.comfort.mattress_thickness_cm} cm</strong> sur les KAILOP).
@@ -214,7 +286,7 @@ export default function TenteToitRigidePage() {
             <div className="tente-advantage-item">
               <div className="advantage-number">7</div>
               <div className="advantage-content">
-                <h3>Sécurité Renforcée</h3>
+                <h3>Sécurité renforcée</h3>
                 <p>
                   Le système de verrouillage ({kp19pro.security.fixation_system}) empêche toute ouverture
                   accidentelle en roulage. La structure rigide offre également une meilleure résistance
@@ -226,13 +298,13 @@ export default function TenteToitRigidePage() {
         </div>
       </section>
 
-      {/* Inconvénients honnêtes */}
+      {/* Limites à connaître */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Les Limites à Connaître</h2>
-          <p className="section-intro">
-            Par souci d'honnêteté, voici les points à considérer avant d'investir dans une tente rigide.
-          </p>
+          <div className="section-header-pro">
+            <h2>Les limites à connaître</h2>
+            <p>Par souci d'honnêteté, voici les points à considérer avant d'investir dans une tente rigide.</p>
+          </div>
 
           <div className="tente-limits-grid">
             <div className="tente-limit-card">
@@ -254,7 +326,7 @@ export default function TenteToitRigidePage() {
               </p>
               <p className="limit-solution">
                 <strong>Solution :</strong> La durabilité (10-15 ans) et les économies d'hébergement
-                rentabilisent rapidement l'investissement.
+                rentabilisent rapidement l'investissement. Code KAILOP120 = -120€.
               </p>
             </div>
 
@@ -275,16 +347,18 @@ export default function TenteToitRigidePage() {
       {/* Nos recommandations */}
       <section className="tente-section">
         <div className="container">
-          <h2>Nos Recommandations : Tentes de Toit Rigides KAILOP</h2>
-          <p className="section-intro">
-            Après avoir testé de nombreux modèles, nous recommandons les tentes KAILOP pour leur excellent
-            rapport qualité-prix et leur fabrication européenne.
-          </p>
+          <div className="section-header-pro">
+            <h2>Nos recommandations : tentes de toit rigides KAILOP</h2>
+            <p>
+              Après avoir analysé le marché, nous recommandons les tentes KAILOP pour leur excellent
+              rapport qualité-prix, leurs vérins allemands et leur fabrication européenne.
+            </p>
+          </div>
 
           <div className="tente-products-grid">
             {/* KP19PRO */}
-            <article className="tente-product-card">
-              <div className="tente-product-image">
+            <article className="product-card-pro">
+              <div className="product-card-image">
                 <Image
                   src={kp19pro.media.images.general[0]}
                   alt={`Tente de toit rigide KAILOP ${kp19pro.model}`}
@@ -292,45 +366,65 @@ export default function TenteToitRigidePage() {
                   height={400}
                   style={{ objectFit: 'cover' }}
                 />
-                <span className="tente-product-badge">Ouverture Arrière</span>
+                <div className="product-badges">
+                  <span className="badge-discount">-{getDiscountPercentage(kp19pro.pricing.original_eur, kp19pro.pricing.current_eur)}%</span>
+                  <span className="badge-bestseller">Ouverture Arrière</span>
+                </div>
               </div>
-              <div className="tente-product-content">
-                <h3>KAILOP {kp19pro.model}</h3>
-                <p className="tente-product-positioning">{kp19pro.positioning}</p>
+              <div className="product-card-body">
+                <h3 className="product-card-title">KAILOP {kp19pro.model}</h3>
+                <p className="product-card-subtitle">{kp19pro.positioning}</p>
 
-                <div className="tente-product-highlights">
-                  <span className="highlight">Coque {kp19pro.materials.shell}</span>
-                  <span className="highlight">{kp19pro.weight.net_kg} kg</span>
-                  <span className="highlight">{kp19pro.capacity.min_persons}-{kp19pro.capacity.max_persons} places</span>
+                <div className="product-specs-grid">
+                  <div className="product-spec">
+                    <span className="product-spec-icon">⚡</span>
+                    <span>Ouverture {kp19pro.opening_system_details.opening_time_seconds}s</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">⚖️</span>
+                    <span>{kp19pro.weight.net_kg} kg</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">👥</span>
+                    <span>{kp19pro.capacity.min_persons}-{kp19pro.capacity.max_persons} places</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">🌧️</span>
+                    <span>{kp19pro.weather_resistance.waterproof_rating}</span>
+                  </div>
                 </div>
 
-                <p>
+                <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', marginBottom: 'var(--space-4)' }}>
                   L'ouverture arrière crée un <strong>auvent naturel</strong> qui protège l'entrée de la pluie.
-                  Idéale pour les climats variables, elle offre un excellent compromis entre espace et praticité.
+                  Idéale pour les climats variables.
                 </p>
 
-                <div className="tente-product-price-box">
-                  <div className="tente-product-prices">
-                    <span className="price-current-large">{formatPrice(kp19pro.pricing.current_eur)}</span>
-                    <span className="price-original-large">{formatPrice(kp19pro.pricing.original_eur)}</span>
+                <div className="product-price-section">
+                  <div className="product-price-row">
+                    <span className="product-price-current">{formatPrice(kp19pro.pricing.current_eur)}</span>
+                    <span className="product-price-original">{formatPrice(kp19pro.pricing.original_eur)}</span>
                   </div>
-                  <span className="tente-product-delivery">{kp19pro.pricing.delivery}</span>
+                  <div className="product-promo-code">
+                    <span className="promo-label">Code exclusif :</span>
+                    <span className="promo-code-value">KAILOP120</span>
+                  </div>
                 </div>
 
                 <a
                   href={kp19pro.affiliate.url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="tente-cta-button"
+                  className="cta-product-pro"
                 >
-                  {kp19pro.affiliate.cta_label}
+                  Voir la KP19PRO
+                  <span>-120€ avec KAILOP120</span>
                 </a>
               </div>
             </article>
 
             {/* ST09PRO */}
-            <article className="tente-product-card">
-              <div className="tente-product-image">
+            <article className="product-card-pro">
+              <div className="product-card-image">
                 <Image
                   src={st09pro.media.images.general[0]}
                   alt={`Tente de toit rigide KAILOP ${st09pro.model}`}
@@ -338,38 +432,58 @@ export default function TenteToitRigidePage() {
                   height={400}
                   style={{ objectFit: 'cover' }}
                 />
-                <span className="tente-product-badge">Ouverture Latérale</span>
+                <div className="product-badges">
+                  <span className="badge-discount">-{getDiscountPercentage(st09pro.pricing.original_eur, st09pro.pricing.current_eur)}%</span>
+                  <span className="badge-premium">Ouverture Latérale</span>
+                </div>
               </div>
-              <div className="tente-product-content">
-                <h3>KAILOP {st09pro.model}</h3>
-                <p className="tente-product-positioning">{st09pro.positioning}</p>
+              <div className="product-card-body">
+                <h3 className="product-card-title">KAILOP {st09pro.model}</h3>
+                <p className="product-card-subtitle">{st09pro.positioning}</p>
 
-                <div className="tente-product-highlights">
-                  <span className="highlight">Coque {st09pro.materials.shell}</span>
-                  <span className="highlight">{st09pro.weight.net_kg} kg</span>
-                  <span className="highlight">{st09pro.capacity.min_persons}-{st09pro.capacity.max_persons} places</span>
+                <div className="product-specs-grid">
+                  <div className="product-spec">
+                    <span className="product-spec-icon">⚡</span>
+                    <span>Ouverture {st09pro.opening_system_details.opening_time_seconds}s</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">⚖️</span>
+                    <span>{st09pro.weight.net_kg} kg</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">👥</span>
+                    <span>{st09pro.capacity.min_persons}-{st09pro.capacity.max_persons} places</span>
+                  </div>
+                  <div className="product-spec">
+                    <span className="product-spec-icon">🌀</span>
+                    <span>3 fenêtres ventilées</span>
+                  </div>
                 </div>
 
-                <p>
+                <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', marginBottom: 'var(--space-4)' }}>
                   L'ouverture latérale offre un <strong>espace intérieur optimisé</strong> et une meilleure
-                  ventilation grâce aux 3 larges fenêtres. Parfaite pour les climats chauds ou les séjours prolongés.
+                  ventilation. Parfaite pour les climats chauds.
                 </p>
 
-                <div className="tente-product-price-box">
-                  <div className="tente-product-prices">
-                    <span className="price-current-large">{formatPrice(st09pro.pricing.current_eur)}</span>
-                    <span className="price-original-large">{formatPrice(st09pro.pricing.original_eur)}</span>
+                <div className="product-price-section">
+                  <div className="product-price-row">
+                    <span className="product-price-current">{formatPrice(st09pro.pricing.current_eur)}</span>
+                    <span className="product-price-original">{formatPrice(st09pro.pricing.original_eur)}</span>
                   </div>
-                  <span className="tente-product-delivery">{st09pro.pricing.delivery}</span>
+                  <div className="product-promo-code">
+                    <span className="promo-label">Code exclusif :</span>
+                    <span className="promo-code-value">KAILOP120</span>
+                  </div>
                 </div>
 
                 <a
                   href={st09pro.affiliate.url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="tente-cta-button"
+                  className="cta-product-pro"
                 >
-                  {st09pro.affiliate.cta_label}
+                  Voir la ST09PRO
+                  <span>-120€ avec KAILOP120</span>
                 </a>
               </div>
             </article>
@@ -380,7 +494,10 @@ export default function TenteToitRigidePage() {
       {/* Critères de choix */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Comment Choisir sa Tente de Toit Rigide ?</h2>
+          <div className="section-header-pro">
+            <h2>Comment choisir sa tente de toit rigide ?</h2>
+            <p>Les critères clés pour sélectionner le modèle adapté à vos besoins.</p>
+          </div>
 
           <div className="tente-criteria-grid">
             <div className="tente-criterion-card">
@@ -425,7 +542,9 @@ export default function TenteToitRigidePage() {
       {/* FAQ */}
       <section className="tente-section">
         <div className="container">
-          <h2>Questions Fréquentes sur les Tentes Rigides</h2>
+          <div className="section-header-pro">
+            <h2>Questions fréquentes sur les tentes rigides</h2>
+          </div>
 
           <div className="tente-faq">
             <details className="tente-faq-item">
@@ -481,39 +600,54 @@ export default function TenteToitRigidePage() {
       {/* Maillage interne */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Continuez Votre Recherche</h2>
-          <div className="tente-internal-links">
-            <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
-              <span className="link-icon">🏆</span>
-              <span className="link-text">
-                <strong>comparatif</strong>
-                <span>Toutes les meilleures tentes de toit</span>
-              </span>
+          <div className="section-header-pro">
+            <h2>Continuez votre recherche</h2>
+          </div>
+
+          <div className="internal-links-pro">
+            <Link href="/meilleures-tentes-de-toit/" className="internal-link-pro">
+              <div className="internal-link-icon">🏆</div>
+              <div className="internal-link-text">
+                <h4>Comparatif complet</h4>
+                <p>Toutes les meilleures tentes de toit</p>
+              </div>
             </Link>
-            <Link href="/tente-de-toit-4x4/" className="tente-internal-link">
-              <span className="link-icon">🚙</span>
-              <span className="link-text">
-                <strong>Tente de Toit pour 4x4</strong>
-                <span>Guide spécial tout-terrain</span>
-              </span>
+            <Link href="/tente-de-toit-4x4/" className="internal-link-pro">
+              <div className="internal-link-icon">🚙</div>
+              <div className="internal-link-text">
+                <h4>Tente de toit pour 4x4</h4>
+                <p>Overlanding et tout-terrain</p>
+              </div>
             </Link>
-            <Link href="/tente-de-toit-pas-cher/" className="tente-internal-link">
-              <span className="link-icon">💰</span>
-              <span className="link-text">
-                <strong>Tentes Pas Chères</strong>
-                <span>Options économiques qualité/prix</span>
-              </span>
+            <Link href="/tente-de-toit-pas-cher/" className="internal-link-pro">
+              <div className="internal-link-icon">💰</div>
+              <div className="internal-link-text">
+                <h4>Tentes petit budget</h4>
+                <p>Options économiques qualité/prix</p>
+              </div>
             </Link>
-            <Link href="/kaylop-tente-de-toit-avis/" className="tente-internal-link">
-              <span className="link-icon">⭐</span>
-              <span className="link-text">
-                <strong>Avis KAILOP</strong>
-                <span>Ce que pensent les utilisateurs</span>
-              </span>
+            <Link href="/kaylop-tente-de-toit-avis/" className="internal-link-pro">
+              <div className="internal-link-icon">⭐</div>
+              <div className="internal-link-text">
+                <h4>Avis KAILOP</h4>
+                <p>Ce que pensent les utilisateurs</p>
+              </div>
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Floating CTA */}
+      <div className="floating-cta">
+        <a
+          href={brand.affiliate.default_url}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className="floating-cta-button"
+        >
+          🎁 -120€ avec KAILOP120
+        </a>
+      </div>
     </main>
   )
 }

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { loadCampings } from '@/lib/loadCampings'
 import { getAllRegions, getAllDepartements } from '@/lib/groupings'
 import { slugify } from '@/lib/utils'
+import { CampingSearch } from '@/components/campings/CampingSearch'
 
 export const metadata: Metadata = {
   title: 'Campings en France - Vie de Camping',
@@ -311,7 +312,7 @@ export default function CampingsPage() {
         </div>
       </section>
 
-      {/* Liste complète */}
+      {/* Section recherche */}
       <section style={{
         padding: 'clamp(2rem, 4vw, 3rem) 0',
         backgroundColor: '#F5F5F5'
@@ -323,85 +324,17 @@ export default function CampingsPage() {
             color: 'var(--color-gray-900)',
             marginBottom: 'var(--space-2)'
           }}>
-            Tous les campings ({campings.length.toLocaleString('fr-FR')})
+            Rechercher un camping
           </h2>
           <p style={{
             fontSize: 'var(--text-base)',
             color: 'var(--color-gray-600)',
             marginBottom: 'var(--space-6)'
           }}>
-            Liste complète par ordre alphabétique
+            Utilisez les filtres pour trouver le camping idéal parmi {campings.length.toLocaleString('fr-FR')} établissements
           </p>
 
-          <div style={{
-            display: 'grid',
-            gap: 'var(--space-4)'
-          }}>
-            {campings.map((camping) => (
-              <article key={camping.slug} style={{
-                backgroundColor: 'var(--color-white)',
-                border: '1px solid var(--color-gray-200)',
-                borderRadius: 'var(--radius-lg)',
-                padding: 'clamp(1rem, 2vw, 1.25rem)',
-                transition: 'all var(--transition-base)',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  gap: 'var(--space-4)',
-                  flexWrap: 'wrap'
-                }}>
-                  <div style={{ flex: 1, minWidth: '200px' }}>
-                    <h3 style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: 'var(--font-bold)',
-                      marginBottom: 'var(--space-2)',
-                      margin: 0
-                    }}>
-                      <Link
-                        href={`/campings/${camping.slug}/`}
-                        style={{
-                          color: '#003580',
-                          textDecoration: 'none',
-                          transition: 'color var(--transition-base)'
-                        }}
-                      >
-                        {camping.nom}
-                      </Link>
-                    </h3>
-                    <p style={{
-                      color: 'var(--color-gray-600)',
-                      fontSize: 'var(--text-sm)',
-                      margin: 0
-                    }}>
-                      <Link
-                        href={`/campings/commune/${slugify(camping.commune)}/`}
-                        style={{ color: '#003580', textDecoration: 'none' }}
-                      >
-                        {camping.commune}
-                      </Link>
-                      {' '}({camping.departement})
-                      {camping.nombreEmplacements && ` • ${camping.nombreEmplacements} emplacements`}
-                    </p>
-                  </div>
-
-                  <div style={{
-                    backgroundColor: '#003580',
-                    color: 'var(--color-white)',
-                    padding: 'var(--space-2) var(--space-4)',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: 'var(--font-semibold)',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {camping.classement}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <CampingSearch campings={campings} showAdvancedFilters={true} />
         </div>
       </section>
 

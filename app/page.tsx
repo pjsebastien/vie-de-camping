@@ -4,6 +4,7 @@ import { getAllRegions, getAllDepartements, getAllCommunes, groupCampingsByRegio
 import { SearchBarAdvanced } from '@/components/ui/SearchBarAdvanced'
 import { DestinationCard } from '@/components/cards/DestinationCard'
 import { slugify } from '@/lib/utils'
+import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -18,6 +19,8 @@ export default function HomePage() {
   const departments = getAllDepartements()
   const communes = getAllCommunes()
   const campingsByRegion = groupCampingsByRegion()
+  const tentesData = loadTentesData()
+  const kp19pro = tentesData.models.find(m => m.model === 'KP19PRO')!
 
   // Top 6 régions par nombre de campings
   const topRegions = Object.entries(campingsByRegion)
@@ -362,10 +365,158 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Tentes de Toit - Section Promo */}
+      <section style={{
+        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
+        backgroundColor: 'var(--color-white)',
+        borderTop: '1px solid var(--color-gray-100)'
+      }}>
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: 'clamp(1.5rem, 4vw, 2.5rem)',
+            alignItems: 'center'
+          }}>
+            {/* Texte */}
+            <div>
+              <div style={{
+                display: 'inline-block',
+                padding: '4px 12px',
+                backgroundColor: '#DC2626',
+                color: 'white',
+                borderRadius: 'var(--radius-full)',
+                fontSize: 'var(--text-sm)',
+                fontWeight: 'var(--font-semibold)',
+                marginBottom: 'var(--space-3)'
+              }}>
+                -120€ avec le code KAILOP120
+              </div>
+              <h2 style={{
+                fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
+                fontWeight: 'var(--font-bold)',
+                color: 'var(--color-gray-900)',
+                marginBottom: 'var(--space-3)',
+                lineHeight: '1.2'
+              }}>
+                Tentes de toit : dormez partout, en toute liberté
+              </h2>
+              <p style={{
+                fontSize: 'var(--text-base)',
+                color: 'var(--color-gray-600)',
+                lineHeight: '1.7',
+                marginBottom: 'var(--space-4)'
+              }}>
+                Transformez votre véhicule en hébergement mobile. Les tentes de toit rigides KAILOP s'ouvrent
+                en 5 secondes et offrent un couchage confortable pour 2-3 personnes. Garantie 5 ans, livraison
+                gratuite depuis la France.
+              </p>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 'var(--space-2)',
+                marginBottom: 'var(--space-5)'
+              }}>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 12px',
+                  backgroundColor: 'var(--color-gray-100)',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-gray-700)'
+                }}>🛡️ Garantie 5 ans</span>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 12px',
+                  backgroundColor: 'var(--color-gray-100)',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-gray-700)'
+                }}>🚚 Livraison gratuite</span>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 12px',
+                  backgroundColor: 'var(--color-gray-100)',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-gray-700)'
+                }}>⚡ Ouverture 5s</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 'var(--space-3)',
+                alignItems: 'center'
+              }}>
+                <Link
+                  href="/meilleures-tentes-de-toit/"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-2)',
+                    padding: 'var(--space-3) var(--space-5)',
+                    backgroundColor: '#16A34A',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: 'var(--radius-md)',
+                    fontWeight: 'var(--font-semibold)',
+                    fontSize: 'var(--text-base)',
+                    transition: 'all var(--transition-base)'
+                  }}
+                >
+                  Voir les tentes de toit →
+                </Link>
+                <span style={{
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--color-gray-500)'
+                }}>
+                  À partir de <strong style={{ color: 'var(--color-gray-900)' }}>{formatPrice(kp19pro.pricing.current_eur)}</strong>
+                </span>
+              </div>
+            </div>
+
+            {/* Image */}
+            <div style={{
+              position: 'relative',
+              borderRadius: 'var(--radius-xl)',
+              overflow: 'hidden',
+              aspectRatio: '4/3'
+            }}>
+              <Image
+                src={kp19pro.media.images.general[0]}
+                alt="Tente de toit KAILOP - Camping en liberté"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 'var(--space-3)',
+                left: 'var(--space-3)',
+                padding: '8px 14px',
+                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                color: 'white',
+                borderRadius: 'var(--radius-md)',
+                fontSize: 'var(--text-sm)',
+                fontWeight: 'var(--font-medium)'
+              }}>
+                🎁 Code promo : KAILOP120
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Avantages */}
       <section style={{
         padding: 'clamp(2rem, 5vw, 3.5rem) 0',
-        backgroundColor: 'var(--color-white)'
+        backgroundColor: '#F5F5F5'
       }}>
         <div className="container">
           <div style={{

@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { loadTentesData, formatPrice } from '@/lib/loadTentesData'
+import { loadTentesData, formatPrice, getDiscountPercentage } from '@/lib/loadTentesData'
+import { TenteSubNav } from '@/components/tentes/TenteSubNav'
 
 export const metadata: Metadata = {
-  title: 'KAILOP : avis et test complet des tentes de toit',
-  description: 'Avis complet sur les tentes de toit KAILOP : qualité, fiabilité et service client. Test détaillé des modèles KP19PRO et ST09PRO.',
+  title: 'KAILOP : avis et test complet des tentes de toit rigides',
+  description: 'Avis complet sur les tentes de toit KAILOP : qualité, fiabilité et service client. Test détaillé KP19PRO et ST09PRO. Code promo -120€.',
   keywords: ['kailop avis', 'kailop tente de toit', 'avis tente kailop', 'test kailop', 'kailop qualité'],
 }
 
@@ -17,197 +18,216 @@ export default function KaylopAvisPage() {
 
   return (
     <main className="tente-page">
-      <section className="tente-hero">
+      {/* Promo Banner */}
+      <div className="promo-banner">
+        <div className="promo-banner-content">
+          <span className="promo-text"><strong>-120€</strong> sur votre tente de toit</span>
+          <span className="promo-code">KAILOP120</span>
+          <span className="promo-text">Code exclusif activé au clic</span>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <TenteSubNav />
+
+      {/* Hero */}
+      <section className="tente-hero-pro">
         <div className="container">
           <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link href="/">Accueil</Link>
             <span>/</span>
-            <Link href="/meilleures-tentes-de-toit/">Tentes de toit</Link>
+            <Link href="/meilleures-tentes-de-toit/">Tentes de Toit</Link>
             <span>/</span>
             <span>Avis KAILOP</span>
           </nav>
-          <div className="tente-hero-content">
-            <h1>KAILOP : avis et test des tentes de toit</h1>
-            <p className="tente-hero-subtitle">
-              KAILOP propose des tentes de toit rigides à prix compétitif. Mais que valent-elles vraiment ?
-              Analyse détaillée basée sur les spécifications et retours utilisateurs.
-            </p>
+
+          <div className="tente-hero-grid">
+            <div className="tente-hero-text">
+              <h1>KAILOP : <span>avis et test complet</span></h1>
+              <p className="tente-hero-lead">
+                <strong>KAILOP</strong> propose des tentes de toit rigides à prix compétitif. Mais que valent-elles
+                vraiment ? Analyse détaillée de la qualité, du service client et des deux modèles phares
+                KP19PRO et ST09PRO. Notre verdict après étude approfondie.
+              </p>
+
+              <div className="hero-trust-badges">
+                <div className="hero-badge"><span className="hero-badge-icon">⭐</span><span>4.8/5 - KP19PRO</span></div>
+                <div className="hero-badge"><span className="hero-badge-icon">⭐</span><span>4.9/5 - ST09PRO</span></div>
+                <div className="hero-badge"><span className="hero-badge-icon">🛡️</span><span>Garantie 5 ans</span></div>
+              </div>
+
+              <div className="hero-cta-group">
+                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="cta-primary-pro">
+                  Voir le KP19PRO à {formatPrice(kp19pro.pricing.current_eur)} →
+                </a>
+                <Link href="#comparatif" className="cta-secondary-pro">Comparer les modèles</Link>
+              </div>
+            </div>
+
+            <div className="tente-hero-image">
+              <Image
+                src={kp19pro.media.images.general[0]}
+                alt="Test et avis tente de toit KAILOP"
+                width={600}
+                height={450}
+                priority
+                style={{ objectFit: 'cover' }}
+              />
+              <span className="hero-image-badge">-120€ avec KAILOP120</span>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Présentation KAILOP */}
       <section className="tente-section">
         <div className="container">
-          <div className="tente-intro">
+          <div style={{ maxWidth: '900px' }}>
+            <h2>KAILOP, c'est quoi ?</h2>
             <p>
-              <strong>KAILOP</strong> est une marque positionnée sur le segment des tentes de toit rigides haut de gamme
-              à prix accessible. Leur promesse : "{brand.promise}" Nous avons analysé leurs deux modèles
-              phares pour vous donner un avis objectif.
+              KAILOP est une marque spécialisée dans les tentes de toit rigides haut de gamme à prix accessible.
+              Leur promesse : "{brand.promise}" L'entrepôt est situé en France, ce qui garantit une livraison
+              rapide et un SAV accessible.
+            </p>
+            <p>
+              Contrairement aux grandes marques qui facturent leur notoriété, KAILOP utilise un modèle de
+              vente directe (pas de réseau de revendeurs) et investit moins en marketing traditionnel.
+              Résultat : la qualité des composants est équivalente aux marques premium, mais les prix sont
+              30 à 40% inférieurs.
             </p>
           </div>
 
-          <div className="tente-brand-overview">
-            <h2>KAILOP en Bref</h2>
-            <div className="brand-info-grid">
-              <div className="brand-info-item">
-                <span className="info-label">Positionnement</span>
-                <span className="info-value">{brand.positioning}</span>
+          <div className="trust-grid-pro" style={{ marginTop: 'var(--space-5)' }}>
+            {brand.trust_badges.map((badge, index) => (
+              <div key={index} className="trust-card-pro">
+                <div className="trust-card-icon">{['🛡️', '🚚', '↩️', '💳'][index]}</div>
+                <h4>{badge.label}</h4>
+                <p>{badge.description}</p>
               </div>
-              <div className="brand-info-item">
-                <span className="info-label">Entrepôt</span>
-                <span className="info-value">{brand.logistics.warehouse_location}</span>
-              </div>
-              <div className="brand-info-item">
-                <span className="info-label">Délai livraison</span>
-                <span className="info-value">{brand.logistics.delivery_delay_days}</span>
-              </div>
-              <div className="brand-info-item">
-                <span className="info-label">Support</span>
-                <span className="info-value">{brand.support.resources.join(', ')}</span>
-              </div>
-            </div>
-
-            <div className="brand-badges">
-              {brand.trust_badges.map((badge, i) => (
-                <div key={i} className="brand-badge">
-                  <strong>{badge.label}</strong>
-                  <span>{badge.description}</span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* Avis KP19PRO */}
       <section className="tente-section tente-section-alt">
         <div className="container">
-          <h2>Notre Avis sur les Modèles KAILOP</h2>
-
-          {/* KP19PRO Review */}
-          <div className="tente-review-card">
-            <div className="review-header">
+          <h2 style={{ marginBottom: 'var(--space-4)' }}>Avis sur le KAILOP KP19PRO</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--space-5)', alignItems: 'start' }}>
+            <div>
               <Image
                 src={kp19pro.media.images.general[0]}
                 alt="Test KAILOP KP19PRO"
-                width={400}
-                height={300}
-                style={{ objectFit: 'cover' }}
+                width={500}
+                height={375}
+                style={{ objectFit: 'cover', borderRadius: 'var(--radius-lg)' }}
               />
-              <div className="review-summary">
-                <h3>KAILOP {kp19pro.model}</h3>
-                <p className="review-positioning">{kp19pro.positioning}</p>
-                <div className="review-rating">
-                  <span className="rating-stars">★★★★★</span>
-                  <span className="rating-value">4.8/5</span>
-                </div>
-                <span className="review-price">{formatPrice(kp19pro.pricing.current_eur)}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginTop: 'var(--space-3)' }}>
+                <span style={{ fontSize: 'var(--text-xl)', color: 'var(--color-amber-500)' }}>★★★★★</span>
+                <span style={{ fontWeight: 600, color: 'var(--color-gray-800)' }}>4.8/5</span>
               </div>
             </div>
+            <div>
+              <h3 style={{ color: 'var(--color-gray-800)', marginBottom: 'var(--space-3)' }}>KAILOP {kp19pro.model}</h3>
+              <p style={{ color: 'var(--color-gray-600)', marginBottom: 'var(--space-3)', fontSize: 'var(--text-sm)' }}>{kp19pro.positioning}</p>
 
-            <div className="review-content">
-              <div className="review-pros-cons">
-                <div className="review-pros">
-                  <h4>Points Positifs</h4>
-                  <ul>
-                    <li>Ouverture en {kp19pro.opening_system_details.opening_time_seconds} secondes grâce aux vérins allemands</li>
-                    <li>Coque aluminium légère ({kp19pro.weight.net_kg} kg) et résistante</li>
-                    <li>Étanchéité {kp19pro.weather_resistance.waterproof_rating} - tient sous la pluie battante</li>
-                    <li>Matelas mémoire de forme confortable ({kp19pro.comfort.mattress_thickness_cm} cm)</li>
-                    <li>Profil bas fermé ({kp19pro.dimensions.closed_cm.height} cm) - aérodynamique</li>
-                    <li>Tous accessoires inclus (échelle, LED, tapis...)</li>
-                    <li>L'auvent arrière protège de la pluie à l'entrée</li>
-                  </ul>
-                </div>
-                <div className="review-cons">
-                  <h4>Points à Améliorer</h4>
-                  <ul>
-                    <li>Une seule fenêtre côté (ventilation moyenne)</li>
-                    <li>Espace de rangement intérieur limité</li>
-                    <li>Montage initial à deux personnes</li>
-                  </ul>
-                </div>
+              <div style={{ marginBottom: 'var(--space-3)' }}>
+                <h4 style={{ color: 'var(--color-green-600)', marginBottom: 'var(--space-2)', fontSize: 'var(--text-sm)' }}>✓ Points positifs</h4>
+                <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                  <li>Ouverture en {kp19pro.opening_system_details.opening_time_seconds}s grâce aux vérins allemands</li>
+                  <li>Coque alu légère ({kp19pro.weight.net_kg} kg) et résistante</li>
+                  <li>Étanchéité {kp19pro.weather_resistance.waterproof_rating}</li>
+                  <li>Profil bas fermé ({kp19pro.dimensions.closed_cm.height} cm)</li>
+                  <li>Auvent arrière protège de la pluie</li>
+                  <li>Tous accessoires inclus</li>
+                </ul>
               </div>
 
-              <div className="review-verdict">
-                <h4>Notre Verdict</h4>
-                <p>
-                  Le KP19PRO est un excellent choix pour les couples et petites familles qui veulent
-                  une tente rigide fiable sans se ruiner. L'ouverture arrière est classique mais efficace.
-                  Le rapport qualité-prix est imbattable dans cette gamme.
-                </p>
-                <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
-                  {kp19pro.affiliate.cta_label}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* ST09PRO Review */}
-          <div className="tente-review-card">
-            <div className="review-header">
-              <Image
-                src={st09pro.media.images.general[0]}
-                alt="Test KAILOP ST09PRO"
-                width={400}
-                height={300}
-                style={{ objectFit: 'cover' }}
-              />
-              <div className="review-summary">
-                <h3>KAILOP {st09pro.model}</h3>
-                <p className="review-positioning">{st09pro.positioning}</p>
-                <div className="review-rating">
-                  <span className="rating-stars">★★★★★</span>
-                  <span className="rating-value">4.9/5</span>
-                </div>
-                <span className="review-price">{formatPrice(st09pro.pricing.current_eur)}</span>
-              </div>
-            </div>
-
-            <div className="review-content">
-              <div className="review-pros-cons">
-                <div className="review-pros">
-                  <h4>Points Positifs</h4>
-                  <ul>
-                    <li>Ouverture latérale = plus d'espace intérieur utilisable</li>
-                    <li>3 larges fenêtres - ventilation excellente</li>
-                    <li>Surface de couchage plus grande ({st09pro.dimensions.open_cm.length} x {st09pro.dimensions.open_cm.width} cm)</li>
-                    <li>Même qualité de fabrication que le KP19PRO</li>
-                    <li>4 fermetures sécurité aluminium - zéro risque en roulant</li>
-                    <li>Idéal pour les climats chauds ou séjours prolongés</li>
-                  </ul>
-                </div>
-                <div className="review-cons">
-                  <h4>Points à Améliorer</h4>
-                  <ul>
-                    <li>Légèrement plus lourd ({st09pro.weight.net_kg} kg)</li>
-                    <li>200€ plus cher que le KP19PRO</li>
-                    <li>Pas d'auvent naturel (ouverture latérale)</li>
-                  </ul>
-                </div>
+              <div style={{ marginBottom: 'var(--space-3)' }}>
+                <h4 style={{ color: 'var(--color-red-600)', marginBottom: 'var(--space-2)', fontSize: 'var(--text-sm)' }}>✗ Points à améliorer</h4>
+                <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                  <li>Une seule fenêtre côté (ventilation moyenne)</li>
+                  <li>Montage initial à deux personnes</li>
+                </ul>
               </div>
 
-              <div className="review-verdict">
-                <h4>Notre Verdict</h4>
-                <p>
-                  Le ST09PRO est le modèle premium de KAILOP. La différence de prix est justifiée par
-                  l'espace supplémentaire et la meilleure ventilation. Si vous prévoyez des voyages dans
-                  des régions chaudes ou des séjours de plusieurs nuits au même endroit, c'est le meilleur choix.
-                </p>
-                <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="tente-cta-button">
-                  {st09pro.affiliate.cta_label}
-                </a>
+              <div className="product-price-section">
+                <div className="product-price-row">
+                  <span className="product-price-current">{formatPrice(kp19pro.pricing.current_eur)}</span>
+                  <span className="product-price-original">{formatPrice(kp19pro.pricing.original_eur)}</span>
+                </div>
+                <div className="product-promo-code"><span className="promo-label">Code exclusif :</span><span className="promo-code-value">KAILOP120</span></div>
               </div>
+              <a href={kp19pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="cta-product-pro" style={{ marginTop: 'var(--space-3)' }}>
+                Voir le KP19PRO sur KAILOP<span>-120€ avec KAILOP120</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Avis ST09PRO */}
       <section className="tente-section">
         <div className="container">
-          <h2>KP19PRO vs ST09PRO : Lequel Choisir ?</h2>
+          <h2 style={{ marginBottom: 'var(--space-4)' }}>Avis sur le KAILOP ST09PRO</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--space-5)', alignItems: 'start' }}>
+            <div>
+              <Image
+                src={st09pro.media.images.general[0]}
+                alt="Test KAILOP ST09PRO"
+                width={500}
+                height={375}
+                style={{ objectFit: 'cover', borderRadius: 'var(--radius-lg)' }}
+              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginTop: 'var(--space-3)' }}>
+                <span style={{ fontSize: 'var(--text-xl)', color: 'var(--color-amber-500)' }}>★★★★★</span>
+                <span style={{ fontWeight: 600, color: 'var(--color-gray-800)' }}>4.9/5</span>
+              </div>
+            </div>
+            <div>
+              <h3 style={{ color: 'var(--color-gray-800)', marginBottom: 'var(--space-3)' }}>KAILOP {st09pro.model}</h3>
+              <p style={{ color: 'var(--color-gray-600)', marginBottom: 'var(--space-3)', fontSize: 'var(--text-sm)' }}>{st09pro.positioning}</p>
 
+              <div style={{ marginBottom: 'var(--space-3)' }}>
+                <h4 style={{ color: 'var(--color-green-600)', marginBottom: 'var(--space-2)', fontSize: 'var(--text-sm)' }}>✓ Points positifs</h4>
+                <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                  <li>Ouverture latérale = plus d'espace intérieur</li>
+                  <li>3 larges fenêtres - ventilation excellente</li>
+                  <li>Surface de couchage plus grande ({st09pro.dimensions.open_cm.length}x{st09pro.dimensions.open_cm.width} cm)</li>
+                  <li>Idéal pour les climats chauds</li>
+                  <li>4 fermetures sécurité aluminium</li>
+                </ul>
+              </div>
+
+              <div style={{ marginBottom: 'var(--space-3)' }}>
+                <h4 style={{ color: 'var(--color-red-600)', marginBottom: 'var(--space-2)', fontSize: 'var(--text-sm)' }}>✗ Points à améliorer</h4>
+                <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                  <li>Légèrement plus lourd ({st09pro.weight.net_kg} kg)</li>
+                  <li>200€ plus cher que le KP19PRO</li>
+                </ul>
+              </div>
+
+              <div className="product-price-section">
+                <div className="product-price-row">
+                  <span className="product-price-current">{formatPrice(st09pro.pricing.current_eur)}</span>
+                  <span className="product-price-original">{formatPrice(st09pro.pricing.original_eur)}</span>
+                </div>
+                <div className="product-promo-code"><span className="promo-label">Code exclusif :</span><span className="promo-code-value">KAILOP120</span></div>
+              </div>
+              <a href={st09pro.affiliate.url} target="_blank" rel="noopener noreferrer nofollow" className="cta-product-pro" style={{ marginTop: 'var(--space-3)' }}>
+                Voir le ST09PRO sur KAILOP<span>-120€ avec KAILOP120</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparatif */}
+      <section id="comparatif" className="tente-section tente-section-alt">
+        <div className="container">
+          <h2 style={{ marginBottom: 'var(--space-4)' }}>KP19PRO vs ST09PRO : lequel choisir ?</h2>
           <div className="tente-table-wrapper">
-            <table className="tente-comparison-table">
+            <table className="comparison-table-pro">
               <thead>
                 <tr>
                   <th>Critère</th>
@@ -217,168 +237,122 @@ export default function KaylopAvisPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td>Ouverture</td>
+                  <td><strong>Ouverture</strong></td>
                   <td>Arrière (auvent)</td>
                   <td>Latérale (espace+)</td>
                 </tr>
                 <tr>
-                  <td>Surface</td>
+                  <td><strong>Surface</strong></td>
                   <td>{kp19pro.dimensions.open_cm.length}x{kp19pro.dimensions.open_cm.width} cm</td>
-                  <td className="highlight-good">{st09pro.dimensions.open_cm.length}x{st09pro.dimensions.open_cm.width} cm</td>
+                  <td style={{ color: 'var(--color-green-600)', fontWeight: 600 }}>{st09pro.dimensions.open_cm.length}x{st09pro.dimensions.open_cm.width} cm</td>
                 </tr>
                 <tr>
-                  <td>Poids</td>
-                  <td className="highlight-good">{kp19pro.weight.net_kg} kg</td>
+                  <td><strong>Poids</strong></td>
+                  <td style={{ color: 'var(--color-green-600)', fontWeight: 600 }}>{kp19pro.weight.net_kg} kg</td>
                   <td>{st09pro.weight.net_kg} kg</td>
                 </tr>
                 <tr>
-                  <td>Fenêtres</td>
+                  <td><strong>Ventilation</strong></td>
                   <td>Double couche</td>
-                  <td className="highlight-good">3 larges fenêtres</td>
+                  <td style={{ color: 'var(--color-green-600)', fontWeight: 600 }}>3 larges fenêtres</td>
                 </tr>
                 <tr>
-                  <td>Prix</td>
-                  <td className="highlight-good">{formatPrice(kp19pro.pricing.current_eur)}</td>
+                  <td><strong>Prix</strong></td>
+                  <td style={{ color: 'var(--color-green-600)', fontWeight: 600 }}>{formatPrice(kp19pro.pricing.current_eur)}</td>
                   <td>{formatPrice(st09pro.pricing.current_eur)}</td>
                 </tr>
                 <tr>
-                  <td>Idéal pour</td>
-                  <td>Couples, roadtrips, climat variable</td>
-                  <td>Familles, séjours longs, climats chauds</td>
+                  <td><strong>Idéal pour</strong></td>
+                  <td>Couples, roadtrips</td>
+                  <td>Familles, climats chauds</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div className="tente-recommendation-box">
-            <h3>Notre Recommandation</h3>
-            <div className="recommendation-grid">
-              <div className="recommendation-item">
-                <h4>Choisissez le KP19PRO si...</h4>
-                <ul>
-                  <li>Vous voyagez en couple</li>
-                  <li>Le budget est prioritaire</li>
-                  <li>Vous faites beaucoup de roadtrip (arrêts courts)</li>
-                  <li>Vous voyagez sous des climats variables</li>
-                </ul>
-              </div>
-              <div className="recommendation-item">
-                <h4>Choisissez le ST09PRO si...</h4>
-                <ul>
-                  <li>Vous êtes une famille avec enfant</li>
-                  <li>Vous aimez l'espace et l'aération</li>
-                  <li>Vous restez plusieurs nuits au même endroit</li>
-                  <li>Vous voyagez dans des régions chaudes</li>
-                </ul>
-              </div>
+          <div className="tente-benefits-grid" style={{ marginTop: 'var(--space-5)' }}>
+            <div className="tente-benefit-card">
+              <div className="tente-benefit-icon">👫</div>
+              <h3>Choisissez le KP19PRO si...</h3>
+              <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                <li>Vous voyagez en couple</li>
+                <li>Le budget est prioritaire</li>
+                <li>Vous faites beaucoup de roadtrip</li>
+                <li>Vous voyagez sous des climats variables</li>
+              </ul>
+            </div>
+            <div className="tente-benefit-card">
+              <div className="tente-benefit-icon">👨‍👩‍👦</div>
+              <h3>Choisissez le ST09PRO si...</h3>
+              <ul style={{ fontSize: 'var(--text-sm)', color: 'var(--color-gray-600)', paddingLeft: 'var(--space-3)' }}>
+                <li>Vous êtes une famille avec enfant</li>
+                <li>Vous aimez l'espace et l'aération</li>
+                <li>Vous restez plusieurs nuits au même endroit</li>
+                <li>Vous voyagez dans des régions chaudes</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="tente-section tente-section-alt">
+      {/* FAQ */}
+      <section className="tente-section">
         <div className="container">
-          <h2>Questions Fréquentes sur KAILOP</h2>
-
+          <h2 style={{ marginBottom: 'var(--space-4)' }}>Questions fréquentes sur KAILOP</h2>
           <div className="tente-faq">
             <details className="tente-faq-item">
               <summary>KAILOP est-elle une marque fiable ?</summary>
-              <p>
-                Oui. KAILOP est une marque spécialisée dans les tentes de toit rigides avec un positionnement
-                qualité/prix. L'entrepôt est en France, la garantie de 5 ans est effective, et le SAV est
-                réactif (support par email et guides en ligne). Les composants sont de qualité (vérins allemands,
-                aluminium, tissu technique).
-              </p>
+              <p>Oui. KAILOP est une marque spécialisée dans les tentes de toit rigides avec un positionnement qualité/prix. L'entrepôt est en France, la garantie de 5 ans est effective, et le SAV est réactif. Les composants sont de qualité (vérins allemands, aluminium, tissu technique).</p>
             </details>
-
             <details className="tente-faq-item">
               <summary>D'où viennent les tentes KAILOP ?</summary>
-              <p>
-                Les tentes sont conçues avec des composants européens (vérins allemands notamment) et
-                assemblées avec des standards de qualité premium. L'entrepôt de distribution est situé
-                en France, ce qui garantit une livraison rapide et un SAV accessible.
-              </p>
+              <p>Les tentes sont conçues avec des composants européens (vérins allemands notamment) et assemblées avec des standards de qualité premium. L'entrepôt de distribution est situé en France, ce qui garantit une livraison rapide ({brand.logistics.delivery_delay_days}).</p>
             </details>
-
             <details className="tente-faq-item">
               <summary>Comment se passe le SAV en cas de problème ?</summary>
-              <p>
-                KAILOP propose un support par email ({brand.support.email}), des FAQ détaillées et des
-                guides d'installation. La garantie 5 ans couvre la structure, la coque et les composants
-                principaux. En cas de problème, le retour sous 30 jours est possible.
-              </p>
+              <p>KAILOP propose un support par email ({brand.support.email}), des FAQ détaillées et des guides d'installation. La garantie 5 ans couvre la structure, la coque et les composants principaux. Retour possible sous 30 jours.</p>
             </details>
-
             <details className="tente-faq-item">
               <summary>Pourquoi KAILOP est moins cher que les grandes marques ?</summary>
-              <p>
-                KAILOP utilise un modèle de vente directe (pas de réseau de revendeurs à rémunérer)
-                et investit moins en marketing traditionnel. La qualité des composants est équivalente
-                aux marques premium, mais les marges sont réduites.
-              </p>
+              <p>KAILOP utilise un modèle de vente directe (pas de réseau de revendeurs) et investit moins en marketing traditionnel. La qualité des composants est équivalente aux marques premium, mais les marges sont réduites.</p>
             </details>
-
             <details className="tente-faq-item">
               <summary>Puis-je voir une tente KAILOP avant d'acheter ?</summary>
-              <p>
-                KAILOP fonctionne principalement en vente en ligne. Cependant, le retour sous 30 jours
-                permet de tester la tente et de la retourner si elle ne convient pas. Certains utilisateurs
-                organisent aussi des rencontres sur les forums pour voir les tentes en situation réelle.
-              </p>
+              <p>KAILOP fonctionne principalement en vente en ligne. Cependant, le retour sous 30 jours permet de tester la tente et de la retourner si elle ne convient pas. Certains utilisateurs organisent aussi des rencontres sur les forums.</p>
             </details>
           </div>
         </div>
       </section>
 
-      <section className="tente-section">
+      {/* Maillage */}
+      <section className="tente-section tente-section-alt">
         <div className="container">
-          <div className="tente-cta-box">
-            <h2>Convaincu par KAILOP ?</h2>
-            <p>
-              Profitez de la livraison gratuite depuis la France et de la garantie 5 ans.
-              Retour possible sous 30 jours si vous n'êtes pas satisfait.
-            </p>
-            <div className="tente-cta-buttons">
-              <a
-                href={kp19pro.affiliate.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="tente-cta-button tente-cta-primary"
-              >
-                Voir le KP19PRO ({formatPrice(kp19pro.pricing.current_eur)})
-              </a>
-              <a
-                href={st09pro.affiliate.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="tente-cta-button tente-cta-secondary"
-              >
-                Voir le ST09PRO ({formatPrice(st09pro.pricing.current_eur)})
-              </a>
-            </div>
+          <h2 style={{ textAlign: 'center', marginBottom: 'var(--space-4)' }}>Continuez votre recherche</h2>
+          <div className="internal-links-pro">
+            <Link href="/meilleures-tentes-de-toit/" className="internal-link-pro">
+              <div className="internal-link-icon">🏆</div>
+              <div className="internal-link-text"><h4>Comparatif complet</h4><p>Toutes les tentes</p></div>
+            </Link>
+            <Link href="/tente-de-toit-rigide/" className="internal-link-pro">
+              <div className="internal-link-icon">🏠</div>
+              <div className="internal-link-text"><h4>Tentes rigides</h4><p>Avantages vs souples</p></div>
+            </Link>
+            <Link href="/tente-de-toit-pas-cher/" className="internal-link-pro">
+              <div className="internal-link-icon">💰</div>
+              <div className="internal-link-text"><h4>Pas cher</h4><p>Meilleurs prix</p></div>
+            </Link>
+            <Link href="/fabriquer-tente-toit-diy/" className="internal-link-pro">
+              <div className="internal-link-icon">🔧</div>
+              <div className="internal-link-text"><h4>DIY</h4><p>Fabriquer soi-même ?</p></div>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="tente-section tente-section-alt">
-        <div className="container">
-          <h2>Ressources tentes de toit</h2>
-          <div className="tente-internal-links">
-            <Link href="/meilleures-tentes-de-toit/" className="tente-internal-link">
-              <span className="link-icon">🏆</span>
-              <span className="link-text"><strong>comparatif</strong><span>Tous les modèles</span></span>
-            </Link>
-            <Link href="/tente-de-toit-rigide/" className="tente-internal-link">
-              <span className="link-icon">🏠</span>
-              <span className="link-text"><strong>Tentes Rigides</strong><span>Avantages et guide</span></span>
-            </Link>
-            <Link href="/tente-de-toit-pas-cher/" className="tente-internal-link">
-              <span className="link-icon">💰</span>
-              <span className="link-text"><strong>Tentes Pas Chères</strong><span>Options économiques</span></span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Floating CTA */}
+      <div className="floating-cta">
+        <a href={brand.affiliate.default_url} target="_blank" rel="noopener noreferrer nofollow" className="floating-cta-button">🎁 -120€ avec KAILOP120</a>
+      </div>
     </main>
   )
 }
