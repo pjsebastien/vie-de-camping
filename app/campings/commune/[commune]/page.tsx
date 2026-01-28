@@ -94,47 +94,39 @@ export default function CommunePage({ params }: Props) {
 
   return (
     <>
-      {/* Breadcrumb */}
-      <section style={{
-        backgroundColor: 'var(--color-white)',
-        padding: 'var(--space-4) 0',
-        borderBottom: '1px solid var(--color-gray-200)'
-      }}>
-        <div className="container">
-          <nav style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-2)',
-            flexWrap: 'wrap',
-            fontSize: 'var(--text-sm)',
-            color: 'var(--color-gray-600)'
-          }}>
-            <Link href="/" style={{ color: '#003580', textDecoration: 'none' }}>Accueil</Link>
-            <span>›</span>
-            {region && (
-              <>
-                <Link href={`/campings/region/${slugify(region)}/`} style={{ color: '#003580', textDecoration: 'none' }}>{region}</Link>
-                <span>›</span>
-              </>
-            )}
-            <Link href={`/campings/departement/${departement}/`} style={{ color: '#003580', textDecoration: 'none' }}>{departementName}</Link>
-            <span>›</span>
-            <span style={{ color: 'var(--color-gray-900)', fontWeight: 'var(--font-semibold)' }}>{commune}</span>
-          </nav>
-        </div>
-      </section>
-
       {/* Hero Section */}
       <section style={{
         backgroundColor: '#003580',
         backgroundImage: `linear-gradient(rgba(0, 53, 128, 0.85), rgba(0, 53, 128, 0.85)), url(${getCampingImage()})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        padding: 'clamp(3rem, 8vw, 5rem) 0',
+        padding: 'clamp(2rem, 5vw, 3.5rem) 0',
         color: 'var(--color-white)',
         marginTop: '0'
       }}>
         <div className="container">
+          {/* Breadcrumb */}
+          <nav style={{
+            marginBottom: 'var(--space-5)',
+            display: 'flex',
+            gap: 'var(--space-3)',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            fontSize: 'var(--text-sm)'
+          }}>
+            <Link href="/" style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>Accueil</Link>
+            <span style={{ opacity: 0.5 }}>›</span>
+            {region && (
+              <>
+                <Link href={`/campings/region/${slugify(region)}/`} style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>{region}</Link>
+                <span style={{ opacity: 0.5 }}>›</span>
+              </>
+            )}
+            <Link href={`/campings/departement/${departement}/`} style={{ color: 'var(--color-white)', textDecoration: 'none', opacity: 0.9 }}>{departementName}</Link>
+            <span style={{ opacity: 0.5 }}>›</span>
+            <span style={{ opacity: 0.9 }}>{commune}</span>
+          </nav>
+
           <div style={{ maxWidth: '900px' }}>
             <h1 style={{
               fontSize: 'clamp(2rem, 5vw, 3rem)',
